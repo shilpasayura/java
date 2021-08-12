@@ -1,0 +1,12 @@
+
+Select Records
+
+javac SqlSelect.java
+java -classpath ".;c:\jdk15\jdbc\sqlite-jdbc-3.7.2.jar" SqlSelect.java
+
+Update Records
+
+javac SqlUpdate.java
+java -classpath ".;c:\jdk15\jdbc\sqlite-jdbc-3.7.2.jar" SqlUpdate.java
+
+
