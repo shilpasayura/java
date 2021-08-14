@@ -1,0 +1,59 @@
+Jar is Java archive tool.
+Jar file is a archive of compressed java classes. It takes ZIP format and .jar extension.
+
+Jar tool is used for creating, updating, extracting and viewing content of jar files.
+
+General syntax of jar command
+
+jar {ctxui}[vfm0Me] [jar-file] [manifest-file] [entry-point] [-C dir] files ...
+
+Type jar --help
+ 
+1. Creating a normal JAR file
+
+Jar cvf hello.jar Hello.class
+
+Jar tool automatically creates a manifest file when generating a new jar file. 
+
+To manually add an external manifest file, use the m option 
+
+Sample manifest.txt
+
+Manifest-Version: 1.0
+Created-By: 1.7.0_06 (Oracle Corporation)
+Main-Class: Hello
+
+Create Jar using manifest.txt
+
+jar cfm Hello.jar manifest.txt
+
+Run Jar
+java -jar Hello.jar
+
+Extract Jar content
+jar xvf hello.jar
+ 
+
+Using command line argument files
+Create a text file that contains jar options and arguments in new lines, and then execute the jar command
+
+if classes.txt file contains the classes to be included
+
+Hello.class
+net/ConfigUtility.class
+net/mail/Email.class
+net/files/File.class
+
+jar cfv Hello.jar -C build\classes @classes.txt
+
+
+Passing JRE options
+The -J option allows us to pass options to the JVM
+
+jar cfv Hello.jar -C build\classes . -J-Xmx128M
+
+maximum memory size is 128MB
+
+
+ 
+

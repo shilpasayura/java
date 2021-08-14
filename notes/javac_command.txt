@@ -1,0 +1,71 @@
+javac command examples
+
+
+javac -help compiler options
+javac -version 
+
+By default, the generated .class files are placed
+under the same directory as the source files.
+
+ 
+
+1. Compile a single Java source file
+
+javac HelloWorld.java
+ 
+2. Compile multiple Java source files
+
+javac Program1.java Program2.java Program3.java
+ 
+Compile all source files whose filenames start with Swing:
+
+javac Swing*.java
+ 
+Compile all source files:
+
+javac *.java
+ 
+3. Compile a Java source file which has dependencies
+
+Compile a source file which depends on an external library:
+
+javac -classpath mail.jar EmailSender.java
+
+javac -cp mail.jar EmailSender.java
+
+Compile a source file which depends on multiple libraries:
+
+javac -cp lib1.jar;lib2.jar;lib3.jar Hello.java
+
+
+We can also use the wildcard character *:
+
+javac -cp *; Hello.java
+
+That will instruct the compiler to look for all 
+available libraries in the same directory 
+as the source file.
+ 
+4. Specify destination directory
+
+javac -d classes Hello.java
+ 
+ 
+5. Specify source path directory
+
+javac -sourcepath src Hello.java
+ 
+ 
+6. Specify Java source compatibility version
+
+avac -source 1.5 Hello.java
+ 
+7. Specify target VM version
+
+javac -target 1.6 -source 1.5 Hello.java
+ 
+
+8. Silent compilation and verbosity
+
+javac -verbose Hello.java
+

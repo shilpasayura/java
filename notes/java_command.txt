@@ -1,0 +1,73 @@
+java command syntax:
+
+java [options] file.class [arguments...]
+
+Run a simple class
+
+java Hello
+
+if CLASSPATH is set
+
+java -cp . Hello
+
+Executing a JAR file.
+java [options] -jar file.jar [arguments... ]
+
+Type java -help  for available options
+
+NOTES:
+A Java class must have the public static void main(String[] args) method in order to be executed by the Java launcher.
+
+An executable JAR file must specify the startup class in by the Main-Class header in its manifest file.
+
+Run a class which has dependencies on jar files:
+
+If we have a JavaMail-based program that depends on mail.jar library. If the jar file is at the same directory as the class file
+
+java -cp mail.jar;. EmailSender
+
+if the jar file is in lib folder
+
+java -cp lib/mail.jar;. EmailSender
+
+If the program depends on more than one jar files:
+
+java -cp mail.jar;anotherlib.jar;. MyProgram
+
+Use wildcard character to refer to all jar files:
+
+java -cp *;. MyProgram
+
+or 
+
+java -cp lib/*;. MyProgram
+ 
+Passing arguments to the program:
+
+java MyProgram code java
+
+java MyProgram "code java" 2013
+
+Run a standalone jar file:
+
+java -jar MyApp.jar
+
+if the jar file depends on other jar files, the reference jar files must be specified in the header Class-Path of the jar’s manifest file. 
+
+The -cp option will be ignored when using -jar flag.
+
+Passing Arguments to the Jar
+java -jar MyApp.jar code java
+
+java -jar MyApp.jar "code java" 2021
+ 
+
+Specify memory size
+
+-Xms<size>: specifies initial heap size
+-Xmx<size>: specifies maximum heap size.
+The size is measured in bytes. 
+Append k or K to indicate kilobytes; 
+Append m or M to indicate megabytes. 
+
+java -Xms32M -Xmx1024M MyProgram

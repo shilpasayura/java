@@ -1,0 +1,19 @@
+=============================
+Experiment of Jar file creation
+============================= 
+
+Compile All
+javac *.java
+
+Run
+java Main
+
+if CLASSPATH set
+java -cp . Main
+
+Create Jar File
+jar cfm MyJar.jar manifest.txt *.class
+
+Run Jar File
+java -jar myjar.jar
+
