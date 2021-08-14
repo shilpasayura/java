@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="shortcut icon" href="http://introcs.cs.princeton.edu/favicon.ico">
+<link rel="stylesheet"    href="http://introcs.cs.princeton.edu/java.css" type="text/css">
+
+<title>Gambler.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="Gambler code in Java">
+<meta NAME="TITLE" CONTENT="Gambler code in Java">
+<meta NAME="KEYWORDS" CONTENT="Gambler,java,programming,computer science,algorithm,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>Gambler.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "Gambler.java">Gambler.java</a>
+from <a href = "http://introcs.cs.princeton.edu/java/13flow">&#167;1.3 Conditionals and Loops</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> *  Compilation:  javac Gambler.java</span>
+<span class="comment"> *  Execution:    java Gambler stake goal N</span>
+<span class="comment"> *  </span>
+<span class="comment"> *  Simulates a gambler who start with $stake and place fair $1 bets</span>
+<span class="comment"> *  until she goes broke or reach $goal. Keeps track of the number of</span>
+<span class="comment"> *  times she wins and the number of bets she makes. Run the experiment N</span>
+<span class="comment"> *  times, averages the results, and prints them out.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java Gambler 50 250 1000</span>
+<span class="comment"> *  178 wins of 1000</span>
+<span class="comment"> *  Percent of games won = 17.8</span>
+<span class="comment"> *  Avg # bets           = 10010.79</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java Gambler 50 150 1000</span>
+<span class="comment"> *  337 wins of 1000</span>
+<span class="comment"> *  Percent of games won = 33.7</span>
+<span class="comment"> *  Avg # bets           = 4863.95</span>
+<span class="comment"> * </span>
+<span class="comment"> *  % java Gambler 50 100 1000</span>
+<span class="comment"> *  503 wins of 1000</span>
+<span class="comment"> *  Percent of games won = 50.3</span>
+<span class="comment"> *  Avg # bets           = 2464.59</span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************/</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Gambler</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span>
+
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> stake </span><span class="symbol">=</span><span class="normal"> Integer</span><span class="symbol">.</span><span class="function">parseInt</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]);</span><span class="normal">    </span><span class="comment">// gambler's stating bankroll</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> goal  </span><span class="symbol">=</span><span class="normal"> Integer</span><span class="symbol">.</span><span class="function">parseInt</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">]);</span><span class="normal">    </span><span class="comment">// gambler's desired bankroll</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> T     </span><span class="symbol">=</span><span class="normal"> Integer</span><span class="symbol">.</span><span class="function">parseInt</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="number">2</span><span class="symbol">]);</span><span class="normal">    </span><span class="comment">// number of trials to perform</span>
+
+<span class="normal">        </span><span class="type">int</span><span class="normal"> bets </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal">        </span><span class="comment">// total number of bets made</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> wins </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal">        </span><span class="comment">// total number of games won</span>
+
+<span class="normal">        </span><span class="comment">// repeat T times</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> t </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> t </span><span class="symbol">&lt;</span><span class="normal"> T</span><span class="symbol">;</span><span class="normal"> t</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">            </span><span class="comment">// do one gambler's ruin simulation</span>
+<span class="normal">            </span><span class="type">int</span><span class="normal"> cash </span><span class="symbol">=</span><span class="normal"> stake</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cash </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> cash </span><span class="symbol">&lt;</span><span class="normal"> goal</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                bets</span><span class="symbol">++;</span>
+<span class="normal">                </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">Math</span><span class="symbol">.</span><span class="function">random</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0.5</span><span class="symbol">)</span><span class="normal"> cash</span><span class="symbol">++;</span><span class="normal">     </span><span class="comment">// win $1</span>
+<span class="normal">                </span><span class="keyword">else</span><span class="normal">                     cash</span><span class="symbol">--;</span><span class="normal">     </span><span class="comment">// lose $1</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cash </span><span class="symbol">==</span><span class="normal"> goal</span><span class="symbol">)</span><span class="normal"> wins</span><span class="symbol">++;</span><span class="normal">                </span><span class="comment">// did gambler go achieve desired goal?</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="comment">// print results</span>
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="normal">wins </span><span class="symbol">+</span><span class="normal"> </span><span class="string">" wins of "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> T</span><span class="symbol">);</span>
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="string">"Percent of games won = "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">100.0</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> wins </span><span class="symbol">/</span><span class="normal"> T</span><span class="symbol">);</span>
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="string">"Avg # bets           = "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1.0</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> bets </span><span class="symbol">/</span><span class="normal"> T</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="cbracket">}</span>
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2000&ndash;2011, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Sun Aug  2 18:43:37 EDT 2015.
+</small></address>
+
+</html>

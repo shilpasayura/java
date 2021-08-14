@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="shortcut icon" href="http://introcs.cs.princeton.edu/favicon.ico">
+<link rel="stylesheet"    href="http://introcs.cs.princeton.edu/java.css" type="text/css">
+
+<title>Binary.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="Binary code in Java">
+<meta NAME="TITLE" CONTENT="Binary code in Java">
+<meta NAME="KEYWORDS" CONTENT="Binary,java,programming,computer science,algorithm,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>Binary.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "Binary.java">Binary.java</a>
+from <a href = "http://introcs.cs.princeton.edu/java/13flow">&#167;1.3 Conditionals and Loops</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> *  Compilation:  javac Binary.java</span>
+<span class="comment"> *  Execution:    java Binary n</span>
+<span class="comment"> *  </span>
+<span class="comment"> *  Prints out n in binary.</span>
+<span class="comment"> * </span>
+<span class="comment"> *  % java Binary 5</span>
+<span class="comment"> *  101</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java Binary 106</span>
+<span class="comment"> *  1101010</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java Binary 0</span>
+<span class="comment"> *  0</span>
+<span class="comment"> * </span>
+<span class="comment"> *  % java Binary 16</span>
+<span class="comment"> *  10000</span>
+<span class="comment"> *</span>
+<span class="comment"> *  Limitations</span>
+<span class="comment"> *  -----------</span>
+<span class="comment"> *  Does not handle negative integers.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  Remarks</span>
+<span class="comment"> *  -------</span>
+<span class="comment"> *  could use Integer.toBinaryString(N) instead.</span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************/</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Binary</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span>
+
+<span class="normal">        </span><span class="comment">// read in the command-line argument</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> n </span><span class="symbol">=</span><span class="normal"> Integer</span><span class="symbol">.</span><span class="function">parseInt</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]);</span>
+
+<span class="normal">        </span><span class="comment">// set v to the largest power of two that is &lt;= n</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> v </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">v </span><span class="symbol">&lt;=</span><span class="normal"> n</span><span class="symbol">/</span><span class="number">2</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            v </span><span class="symbol">=</span><span class="normal"> v </span><span class="symbol">*</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">  </span>
+<span class="normal">        </span><span class="comment">// check for presence of powers of 2 in n, from largest to smallest</span>
+<span class="normal">        </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">v </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">            </span><span class="comment">// v is not present in n </span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n </span><span class="symbol">&lt;</span><span class="normal"> v</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">print</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+
+<span class="normal">            </span><span class="comment">// v is present in n, so remove v from n</span>
+<span class="normal">            </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">print</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">                n </span><span class="symbol">=</span><span class="normal"> n </span><span class="symbol">-</span><span class="normal"> v</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+
+<span class="normal">            </span><span class="comment">// next smallest power of 2</span>
+<span class="normal">            v </span><span class="symbol">=</span><span class="normal"> v </span><span class="symbol">/</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">();</span>
+
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="cbracket">}</span>
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2000&ndash;2011, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Mon Aug  3 06:09:11 EDT 2015.
+</small></address>
+
+</html>

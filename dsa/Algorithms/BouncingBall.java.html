@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="shortcut icon" href="http://introcs.cs.princeton.edu/favicon.ico">
+<link rel="stylesheet"    href="http://introcs.cs.princeton.edu/java.css" type="text/css">
+
+<title>BouncingBall.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="BouncingBall code in Java">
+<meta NAME="TITLE" CONTENT="BouncingBall code in Java">
+<meta NAME="KEYWORDS" CONTENT="BouncingBall,java,programming,computer science,algorithm,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>BouncingBall.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "BouncingBall.java">BouncingBall.java</a>
+from <a href = "http://introcs.cs.princeton.edu/java/15inout">&#167;1.5 Input and Output</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> *  Compilation:  javac BouncingBall.java</span>
+<span class="comment"> *  Execution:    java BouncingBall</span>
+<span class="comment"> *  Dependencies: StdDraw.java</span>
+<span class="comment"> *</span>
+<span class="comment"> *  Implementation of a 2-d bouncing ball in the box from (-1, -1) to (1, 1).</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java BouncingBall</span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************/</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">BouncingBall</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">        </span><span class="comment">// set the scale of the coordinate system</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">setXscale</span><span class="symbol">(-</span><span class="number">1.0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1.0</span><span class="symbol">);</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">setYscale</span><span class="symbol">(-</span><span class="number">1.0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1.0</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="comment">// initial values</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> rx </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0.480</span><span class="symbol">,</span><span class="normal"> ry </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0.860</span><span class="symbol">;</span><span class="normal">     </span><span class="comment">// position</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> vx </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0.015</span><span class="symbol">,</span><span class="normal"> vy </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0.023</span><span class="symbol">;</span><span class="normal">     </span><span class="comment">// velocity</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> radius </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0.05</span><span class="symbol">;</span><span class="normal">              </span><span class="comment">// radius</span>
+
+<span class="normal">        </span><span class="comment">// main animation loop</span>
+<span class="normal">        </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">true</span><span class="symbol">)</span><span class="normal">  </span><span class="cbracket">{</span><span class="normal"> </span>
+
+<span class="normal">            </span><span class="comment">// bounce off wall according to law of elastic collision</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">Math</span><span class="symbol">.</span><span class="function">abs</span><span class="symbol">(</span><span class="normal">rx </span><span class="symbol">+</span><span class="normal"> vx</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">1.0</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> radius</span><span class="symbol">)</span><span class="normal"> vx </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">-</span><span class="normal">vx</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">Math</span><span class="symbol">.</span><span class="function">abs</span><span class="symbol">(</span><span class="normal">ry </span><span class="symbol">+</span><span class="normal"> vy</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">1.0</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> radius</span><span class="symbol">)</span><span class="normal"> vy </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">-</span><span class="normal">vy</span><span class="symbol">;</span>
+
+<span class="normal">            </span><span class="comment">// update position</span>
+<span class="normal">            rx </span><span class="symbol">=</span><span class="normal"> rx </span><span class="symbol">+</span><span class="normal"> vx</span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">            ry </span><span class="symbol">=</span><span class="normal"> ry </span><span class="symbol">+</span><span class="normal"> vy</span><span class="symbol">;</span><span class="normal"> </span>
+
+<span class="normal">            </span><span class="comment">// clear the background</span>
+<span class="normal">            StdDraw</span><span class="symbol">.</span><span class="function">clear</span><span class="symbol">(</span><span class="normal">StdDraw</span><span class="symbol">.</span><span class="normal">GRAY</span><span class="symbol">);</span>
+
+<span class="normal">            </span><span class="comment">// draw ball on the screen</span>
+<span class="normal">            StdDraw</span><span class="symbol">.</span><span class="function">setPenColor</span><span class="symbol">(</span><span class="normal">StdDraw</span><span class="symbol">.</span><span class="normal">BLACK</span><span class="symbol">);</span><span class="normal"> </span>
+<span class="normal">            StdDraw</span><span class="symbol">.</span><span class="function">filledCircle</span><span class="symbol">(</span><span class="normal">rx</span><span class="symbol">,</span><span class="normal"> ry</span><span class="symbol">,</span><span class="normal"> radius</span><span class="symbol">);</span><span class="normal"> </span>
+
+<span class="normal">            </span><span class="comment">// display and pause for 20 ms</span>
+<span class="normal">            StdDraw</span><span class="symbol">.</span><span class="function">show</span><span class="symbol">(</span><span class="number">20</span><span class="symbol">);</span><span class="normal"> </span>
+<span class="normal">        </span><span class="cbracket">}</span><span class="normal"> </span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span>
+<span class="cbracket">}</span><span class="normal"> </span>
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2000&ndash;2011, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Sun Aug  2 18:43:37 EDT 2015.
+</small></address>
+
+</html>

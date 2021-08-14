@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="shortcut icon" href="http://introcs.cs.princeton.edu/favicon.ico">
+<link rel="stylesheet"    href="http://introcs.cs.princeton.edu/java.css" type="text/css">
+
+<title>PrimeSieve.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="PrimeSieve code in Java">
+<meta NAME="TITLE" CONTENT="PrimeSieve code in Java">
+<meta NAME="KEYWORDS" CONTENT="PrimeSieve,java,programming,computer science,algorithm,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>PrimeSieve.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "PrimeSieve.java">PrimeSieve.java</a>
+from <a href = "http://introcs.cs.princeton.edu/java/14array">&#167;1.4 Arrays</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> *  Compilation:  javac PrimeSieve.java</span>
+<span class="comment"> *  Execution:    java -Xmx1100m PrimeSieve N</span>
+<span class="comment"> *  </span>
+<span class="comment"> *  Computes the number of primes less than or equal to N using</span>
+<span class="comment"> *  the Sieve of Eratosthenes.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java PrimeSieve 25</span>
+<span class="comment"> *  The number of primes &lt;= 25 is 9</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java PrimeSieve 100</span>
+<span class="comment"> *  The number of primes &lt;= 100 is 25</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java -Xmx100m PrimeSieve 100000000</span>
+<span class="comment"> *  The number of primes &lt;= 100000000 is 5761455</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java PrimeSieve -Xmx1100m 1000000000 </span>
+<span class="comment"> *  The number of primes &lt;= 1000000000 is 50847534</span>
+<span class="comment"> * </span>
+<span class="comment"> *</span>
+<span class="comment"> *  The 110MB and 1100MB is the amount of memory you want to allocate</span>
+<span class="comment"> *  to the program. If your computer has less, make this number smaller,</span>
+<span class="comment"> *  but it may prevent you from solving the problem for very large</span>
+<span class="comment"> *  values of N.</span>
+<span class="comment"> *</span>
+<span class="comment"> *</span>
+<span class="comment"> *                  N     Primes &lt;= N</span>
+<span class="comment"> *  ---------------------------------</span>
+<span class="comment"> *                 10               4   </span>
+<span class="comment"> *                100              25  </span>
+<span class="comment"> *              1,000             168  </span>
+<span class="comment"> *             10,000           1,229  </span>
+<span class="comment"> *            100,000           9,592  </span>
+<span class="comment"> *          1,000,000          78,498  </span>
+<span class="comment"> *         10,000,000         664,579  </span>
+<span class="comment"> *        100,000,000       5,761,455  </span>
+<span class="comment"> *      1,000,000,000      50,847,534  </span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************/</span>
+
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">PrimeSieve</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> N </span><span class="symbol">=</span><span class="normal"> Integer</span><span class="symbol">.</span><span class="function">parseInt</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]);</span>
+
+<span class="normal">        </span><span class="comment">// initially assume all integers are prime</span>
+<span class="normal">        </span><span class="type">boolean</span><span class="symbol">[]</span><span class="normal"> isPrime </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="type">boolean</span><span class="symbol">[</span><span class="normal">N </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">];</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;=</span><span class="normal"> N</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            isPrime</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="comment">// mark non-primes &lt;= N using Sieve of Eratosthenes</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">*</span><span class="normal">i </span><span class="symbol">&lt;=</span><span class="normal"> N</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">            </span><span class="comment">// if i is prime, then mark multiples of i as nonprime</span>
+<span class="normal">            </span><span class="comment">// suffices to consider mutiples i, i+1, ..., N/i</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">isPrime</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">])</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> j </span><span class="symbol">=</span><span class="normal"> i</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">*</span><span class="normal">j </span><span class="symbol">&lt;=</span><span class="normal"> N</span><span class="symbol">;</span><span class="normal"> j</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                    isPrime</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">*</span><span class="normal">j</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">                </span><span class="cbracket">}</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="comment">// count primes</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> primes </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;=</span><span class="normal"> N</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">isPrime</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">])</span><span class="normal"> primes</span><span class="symbol">++;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="string">"The number of primes &lt;= "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> N </span><span class="symbol">+</span><span class="normal"> </span><span class="string">" is "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> primes</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2000&ndash;2011, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Mon Aug  3 06:09:11 EDT 2015.
+</small></address>
+
+</html>

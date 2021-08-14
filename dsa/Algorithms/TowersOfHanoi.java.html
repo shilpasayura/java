@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="shortcut icon" href="http://introcs.cs.princeton.edu/favicon.ico">
+<link rel="stylesheet"    href="http://introcs.cs.princeton.edu/java.css" type="text/css">
+
+<title>TowersOfHanoi.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="TowersOfHanoi code in Java">
+<meta NAME="TITLE" CONTENT="TowersOfHanoi code in Java">
+<meta NAME="KEYWORDS" CONTENT="TowersOfHanoi,java,programming,computer science,algorithm,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>TowersOfHanoi.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "TowersOfHanoi.java">TowersOfHanoi.java</a>
+from <a href = "http://introcs.cs.princeton.edu/java/23recursion">&#167;2.3 Recursion</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> *  Compilation:  javac TowersOfHanoi.java</span>
+<span class="comment"> *  Execution:    java TowersOfHanoi N</span>
+<span class="comment"> *  </span>
+<span class="comment"> *  Solves the Towers of Hanoi problem on N discs. The discs are labeled</span>
+<span class="comment"> *  in increasing order of size from 1 to N.</span>
+<span class="comment"> * </span>
+<span class="comment"> *  %  java TowersOfHanoi 3</span>
+<span class="comment"> *  1 left</span>
+<span class="comment"> *  2 right</span>
+<span class="comment"> *  1 left</span>
+<span class="comment"> *  3 left</span>
+<span class="comment"> *  1 left</span>
+<span class="comment"> *  2 right</span>
+<span class="comment"> *  1 left</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java TowersOfHanoi 4</span>
+<span class="comment"> *  1 right</span>
+<span class="comment"> *  2 left</span>
+<span class="comment"> *  1 right</span>
+<span class="comment"> *  3 right</span>
+<span class="comment"> *  1 right</span>
+<span class="comment"> *  2 left</span>
+<span class="comment"> *  1 right</span>
+<span class="comment"> *  4 left</span>
+<span class="comment"> *  1 right</span>
+<span class="comment"> *  2 left</span>
+<span class="comment"> *  1 right</span>
+<span class="comment"> *  3 right</span>
+<span class="comment"> *  1 right</span>
+<span class="comment"> *  2 left</span>
+<span class="comment"> *  1 right</span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************/</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">TowersOfHanoi</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">    </span><span class="comment">// print out instructions for moving n discs to</span>
+<span class="normal">    </span><span class="comment">// the left (if left is true) or right (if left is false)</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">moves</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> n</span><span class="symbol">,</span><span class="normal"> </span><span class="type">boolean</span><span class="normal"> left</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="function">moves</span><span class="symbol">(</span><span class="normal">n</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">left</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">left</span><span class="symbol">)</span><span class="normal"> StdOut</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="normal">n </span><span class="symbol">+</span><span class="normal"> </span><span class="string">" left"</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">else</span><span class="normal">      StdOut</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="normal">n </span><span class="symbol">+</span><span class="normal"> </span><span class="string">" right"</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="function">moves</span><span class="symbol">(</span><span class="normal">n</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">left</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> N </span><span class="symbol">=</span><span class="normal"> Integer</span><span class="symbol">.</span><span class="function">parseInt</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]);</span>
+<span class="normal">        </span><span class="function">moves</span><span class="symbol">(</span><span class="normal">N</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="cbracket">}</span>
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2000&ndash;2011, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Mon Aug  3 13:12:19 EDT 2015.
+</small></address>
+
+</html>

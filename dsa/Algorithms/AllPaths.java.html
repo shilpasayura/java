@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="shortcut icon" href="http://algs4.cs.princeton.edu/favicon.ico">
+<link rel="stylesheet"    href="http://algs4.cs.princeton.edu/java.css" type="text/css">
+
+<title>AllPaths.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="AllPaths code in Java">
+<meta NAME="TITLE" CONTENT="AllPaths code in Java">
+<meta NAME="KEYWORDS" CONTENT="AllPaths,java,programming,computer science,algorithm,data structure,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>AllPaths.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "AllPaths.java">AllPaths.java</a>
+from <a href = "http://algs4.cs.princeton.edu/41graph">&#167;4.1 Undirected Graphs</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> *  Compilation:  javac AllPaths.java</span>
+<span class="comment"> *  Execution:    java AllPaths</span>
+<span class="comment"> *  Depedencies:  Graph.java</span>
+<span class="comment"> *  </span>
+<span class="comment"> *  Enumerate all simple paths (of length &gt;= 1) in a graph between s and t.</span>
+<span class="comment"> *  This implementation uses depth-first search and backtracking.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  Warning: there can be exponentially many simple paths in a graph,</span>
+<span class="comment"> *           so no algorithm is suitable for large graphs.</span>
+<span class="comment"> *  </span>
+<span class="comment"> *  7 vertices, 9 edges </span>
+<span class="comment"> *  0: 2 1 </span>
+<span class="comment"> *  1: 5 0 </span>
+<span class="comment"> *  2: 5 3 0 </span>
+<span class="comment"> *  3: 6 4 2 </span>
+<span class="comment"> *  4: 6 5 3 </span>
+<span class="comment"> *  5: 4 1 2 </span>
+<span class="comment"> *  6: 4 3 </span>
+<span class="comment"> *</span>
+<span class="comment"> *</span>
+<span class="comment"> *  all simple paths between 0 and 6:</span>
+<span class="comment"> *  0-2-5-4-6</span>
+<span class="comment"> *  0-2-5-4-3-6</span>
+<span class="comment"> *  0-2-3-6</span>
+<span class="comment"> *  0-2-3-4-6</span>
+<span class="comment"> *  0-1-5-4-6</span>
+<span class="comment"> *  0-1-5-4-3-6</span>
+<span class="comment"> *  0-1-5-2-3-6</span>
+<span class="comment"> *  0-1-5-2-3-4-6</span>
+<span class="comment"> *  # paths = 8</span>
+<span class="comment"> *</span>
+<span class="comment"> *  all simple paths between 1 and 5:</span>
+<span class="comment"> *  1-5</span>
+<span class="comment"> *  1-0-2-5</span>
+<span class="comment"> *  1-0-2-3-6-4-5</span>
+<span class="comment"> *  1-0-2-3-4-5</span>
+<span class="comment"> *  # paths = 4</span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************/</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">AllPaths</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">private</span><span class="normal"> </span><span class="type">boolean</span><span class="symbol">[]</span><span class="normal"> onPath</span><span class="symbol">;</span><span class="normal">        </span><span class="comment">// vertices in current path</span>
+<span class="normal">    </span><span class="keyword">private</span><span class="normal"> </span><span class="usertype">Stack&lt;Integer&gt;</span><span class="normal"> path</span><span class="symbol">;</span><span class="normal">     </span><span class="comment">// the current path</span>
+<span class="normal">    </span><span class="keyword">private</span><span class="normal"> </span><span class="type">int</span><span class="normal"> numberOfPaths</span><span class="symbol">;</span><span class="normal">       </span><span class="comment">// number of simple path</span>
+
+<span class="normal">    </span><span class="comment">// show all simple paths from s to t - use DFS</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="function">AllPaths</span><span class="symbol">(</span><span class="usertype">Graph</span><span class="normal"> G</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> s</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> t</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        onPath </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="type">boolean</span><span class="symbol">[</span><span class="normal">G</span><span class="symbol">.</span><span class="function">V</span><span class="symbol">()];</span>
+<span class="normal">        path   </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> Stack</span><span class="symbol">&lt;</span><span class="normal">Integer</span><span class="symbol">&gt;();</span>
+<span class="normal">        </span><span class="function">dfs</span><span class="symbol">(</span><span class="normal">G</span><span class="symbol">,</span><span class="normal"> s</span><span class="symbol">,</span><span class="normal"> t</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+
+<span class="normal">    </span><span class="comment">// use DFS</span>
+<span class="normal">    </span><span class="keyword">private</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">dfs</span><span class="symbol">(</span><span class="usertype">Graph</span><span class="normal"> G</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> v</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> t</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">        </span><span class="comment">// add v to current path</span>
+<span class="normal">        path</span><span class="symbol">.</span><span class="function">push</span><span class="symbol">(</span><span class="normal">v</span><span class="symbol">);</span>
+<span class="normal">        onPath</span><span class="symbol">[</span><span class="normal">v</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="comment">// found path from s to t</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">v </span><span class="symbol">==</span><span class="normal"> t</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="function">processCurrentPath</span><span class="symbol">();</span>
+<span class="normal">            numberOfPaths</span><span class="symbol">++;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="comment">// consider all neighbors that would continue path with repeating a node</span>
+<span class="normal">        </span><span class="keyword">else</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> w </span><span class="symbol">:</span><span class="normal"> G</span><span class="symbol">.</span><span class="function">adj</span><span class="symbol">(</span><span class="normal">v</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">onPath</span><span class="symbol">[</span><span class="normal">w</span><span class="symbol">])</span>
+<span class="normal">                    </span><span class="function">dfs</span><span class="symbol">(</span><span class="normal">G</span><span class="symbol">,</span><span class="normal"> w</span><span class="symbol">,</span><span class="normal"> t</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="comment">// done exploring from v, so remove from path</span>
+<span class="normal">        path</span><span class="symbol">.</span><span class="function">pop</span><span class="symbol">();</span>
+<span class="normal">        onPath</span><span class="symbol">[</span><span class="normal">v</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// this implementation just prints the path to standard output</span>
+<span class="normal">    </span><span class="keyword">private</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">processCurrentPath</span><span class="symbol">()</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="usertype">Stack&lt;Integer&gt;</span><span class="normal"> reverse </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> Stack</span><span class="symbol">&lt;</span><span class="normal">Integer</span><span class="symbol">&gt;();</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> v </span><span class="symbol">:</span><span class="normal"> path</span><span class="symbol">)</span>
+<span class="normal">            reverse</span><span class="symbol">.</span><span class="function">push</span><span class="symbol">(</span><span class="normal">v</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">reverse</span><span class="symbol">.</span><span class="function">size</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">&gt;=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span>
+<span class="normal">            StdOut</span><span class="symbol">.</span><span class="function">print</span><span class="symbol">(</span><span class="normal">reverse</span><span class="symbol">.</span><span class="function">pop</span><span class="symbol">());</span>
+<span class="normal">        </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">reverse</span><span class="symbol">.</span><span class="function">isEmpty</span><span class="symbol">())</span>
+<span class="normal">            StdOut</span><span class="symbol">.</span><span class="function">print</span><span class="symbol">(</span><span class="string">"-"</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> reverse</span><span class="symbol">.</span><span class="function">pop</span><span class="symbol">());</span>
+<span class="normal">        StdOut</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// return number of simple paths between s and t</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">numberOfPaths</span><span class="symbol">()</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">return</span><span class="normal"> numberOfPaths</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+
+<span class="normal">    </span><span class="comment">// test client</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="usertype">Graph</span><span class="normal"> G </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="function">Graph</span><span class="symbol">(</span><span class="number">7</span><span class="symbol">);</span>
+<span class="normal">        G</span><span class="symbol">.</span><span class="function">addEdge</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">        G</span><span class="symbol">.</span><span class="function">addEdge</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">2</span><span class="symbol">);</span>
+<span class="normal">        G</span><span class="symbol">.</span><span class="function">addEdge</span><span class="symbol">(</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> </span><span class="number">3</span><span class="symbol">);</span>
+<span class="normal">        G</span><span class="symbol">.</span><span class="function">addEdge</span><span class="symbol">(</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">4</span><span class="symbol">);</span>
+<span class="normal">        G</span><span class="symbol">.</span><span class="function">addEdge</span><span class="symbol">(</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> </span><span class="number">5</span><span class="symbol">);</span>
+<span class="normal">        G</span><span class="symbol">.</span><span class="function">addEdge</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">5</span><span class="symbol">);</span>
+<span class="normal">        G</span><span class="symbol">.</span><span class="function">addEdge</span><span class="symbol">(</span><span class="number">5</span><span class="symbol">,</span><span class="normal"> </span><span class="number">4</span><span class="symbol">);</span>
+<span class="normal">        G</span><span class="symbol">.</span><span class="function">addEdge</span><span class="symbol">(</span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="number">6</span><span class="symbol">);</span>
+<span class="normal">        G</span><span class="symbol">.</span><span class="function">addEdge</span><span class="symbol">(</span><span class="number">4</span><span class="symbol">,</span><span class="normal"> </span><span class="number">6</span><span class="symbol">);</span>
+<span class="normal">        StdOut</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="normal">G</span><span class="symbol">);</span>
+
+<span class="normal">        StdOut</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">();</span>
+<span class="normal">        StdOut</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="string">"all simple paths between 0 and 6:"</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="usertype">AllPaths</span><span class="normal"> allpaths1 </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="function">AllPaths</span><span class="symbol">(</span><span class="normal">G</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> </span><span class="number">6</span><span class="symbol">);</span>
+<span class="normal">        StdOut</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="string">"# paths = "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> allpaths1</span><span class="symbol">.</span><span class="function">numberOfPaths</span><span class="symbol">());</span>
+
+<span class="normal">        StdOut</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">();</span>
+<span class="normal">        StdOut</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="string">"all simple paths between 1 and 5:"</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="usertype">AllPaths</span><span class="normal"> allpaths2 </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="function">AllPaths</span><span class="symbol">(</span><span class="normal">G</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">5</span><span class="symbol">);</span>
+<span class="normal">        StdOut</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="string">"# paths = "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> allpaths2</span><span class="symbol">.</span><span class="function">numberOfPaths</span><span class="symbol">());</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+
+<span class="cbracket">}</span>
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-2");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2002&ndash;2015, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Thu Dec 17 20:57:50 EST 2015.
+</small></address>
+
+</html>

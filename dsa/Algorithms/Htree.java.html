@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="shortcut icon" href="http://introcs.cs.princeton.edu/favicon.ico">
+<link rel="stylesheet"    href="http://introcs.cs.princeton.edu/java.css" type="text/css">
+
+<title>Htree.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="Htree code in Java">
+<meta NAME="TITLE" CONTENT="Htree code in Java">
+<meta NAME="KEYWORDS" CONTENT="Htree,java,programming,computer science,algorithm,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>Htree.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "Htree.java">Htree.java</a>
+from <a href = "http://introcs.cs.princeton.edu/java/23recursion">&#167;2.3 Recursion</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> *  Compilation:  javac Htree.java</span>
+<span class="comment"> *  Execution:    java Htree N</span>
+<span class="comment"> *  Dependencies: StdDraw.java</span>
+<span class="comment"> *</span>
+<span class="comment"> *  Plot an order N Htree.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java Htree 5</span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************/</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Htree</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">    </span><span class="comment">// plot an H, centered on (x, y) of the given side length</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">drawH</span><span class="symbol">(</span><span class="type">double</span><span class="normal"> x</span><span class="symbol">,</span><span class="normal"> </span><span class="type">double</span><span class="normal"> y</span><span class="symbol">,</span><span class="normal"> </span><span class="type">double</span><span class="normal"> size</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">        </span><span class="comment">// compute the coordinates of the 4 tips of the H</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> x0 </span><span class="symbol">=</span><span class="normal"> x </span><span class="symbol">-</span><span class="normal"> size</span><span class="symbol">/</span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> x1 </span><span class="symbol">=</span><span class="normal"> x </span><span class="symbol">+</span><span class="normal"> size</span><span class="symbol">/</span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> y0 </span><span class="symbol">=</span><span class="normal"> y </span><span class="symbol">-</span><span class="normal"> size</span><span class="symbol">/</span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> y1 </span><span class="symbol">=</span><span class="normal"> y </span><span class="symbol">+</span><span class="normal"> size</span><span class="symbol">/</span><span class="number">2</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="comment">// draw the 3 line segments of the H</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">line</span><span class="symbol">(</span><span class="normal">x0</span><span class="symbol">,</span><span class="normal"> y0</span><span class="symbol">,</span><span class="normal"> x0</span><span class="symbol">,</span><span class="normal"> y1</span><span class="symbol">);</span><span class="normal">    </span><span class="comment">// left  vertical segment of the H</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">line</span><span class="symbol">(</span><span class="normal">x1</span><span class="symbol">,</span><span class="normal"> y0</span><span class="symbol">,</span><span class="normal"> x1</span><span class="symbol">,</span><span class="normal"> y1</span><span class="symbol">);</span><span class="normal">    </span><span class="comment">// right vertical segment of the H</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">line</span><span class="symbol">(</span><span class="normal">x0</span><span class="symbol">,</span><span class="normal">  y</span><span class="symbol">,</span><span class="normal"> x1</span><span class="symbol">,</span><span class="normal">  y</span><span class="symbol">);</span><span class="normal">    </span><span class="comment">// connect the two vertical segments of the H</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// plot an order n H-tree, centered on (x, y) of the given side length</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">draw</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> n</span><span class="symbol">,</span><span class="normal"> </span><span class="type">double</span><span class="normal"> x</span><span class="symbol">,</span><span class="normal"> </span><span class="type">double</span><span class="normal"> y</span><span class="symbol">,</span><span class="normal"> </span><span class="type">double</span><span class="normal"> size</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="function">drawH</span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">,</span><span class="normal"> y</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="comment">// compute x- and y-coordinates of the 4 half-size H-trees</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> x0 </span><span class="symbol">=</span><span class="normal"> x </span><span class="symbol">-</span><span class="normal"> size</span><span class="symbol">/</span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> x1 </span><span class="symbol">=</span><span class="normal"> x </span><span class="symbol">+</span><span class="normal"> size</span><span class="symbol">/</span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> y0 </span><span class="symbol">=</span><span class="normal"> y </span><span class="symbol">-</span><span class="normal"> size</span><span class="symbol">/</span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> y1 </span><span class="symbol">=</span><span class="normal"> y </span><span class="symbol">+</span><span class="normal"> size</span><span class="symbol">/</span><span class="number">2</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="comment">// recursively draw 4 half-size H-trees of order n-1</span>
+<span class="normal">        </span><span class="function">draw</span><span class="symbol">(</span><span class="normal">n</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> x0</span><span class="symbol">,</span><span class="normal"> y0</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">/</span><span class="number">2</span><span class="symbol">);</span><span class="normal">    </span><span class="comment">// lower left  H-tree</span>
+<span class="normal">        </span><span class="function">draw</span><span class="symbol">(</span><span class="normal">n</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> x0</span><span class="symbol">,</span><span class="normal"> y1</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">/</span><span class="number">2</span><span class="symbol">);</span><span class="normal">    </span><span class="comment">// upper left  H-tree</span>
+<span class="normal">        </span><span class="function">draw</span><span class="symbol">(</span><span class="normal">n</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> x1</span><span class="symbol">,</span><span class="normal"> y0</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">/</span><span class="number">2</span><span class="symbol">);</span><span class="normal">    </span><span class="comment">// lower right H-tree</span>
+<span class="normal">        </span><span class="function">draw</span><span class="symbol">(</span><span class="normal">n</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> x1</span><span class="symbol">,</span><span class="normal"> y1</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">/</span><span class="number">2</span><span class="symbol">);</span><span class="normal">    </span><span class="comment">// upper right H-tree</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// read in a command-line argument N and plot an order N H-tree</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> N </span><span class="symbol">=</span><span class="normal"> Integer</span><span class="symbol">.</span><span class="function">parseInt</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]);</span>
+
+<span class="normal">        </span><span class="type">double</span><span class="normal"> x </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0.5</span><span class="symbol">,</span><span class="normal"> y </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0.5</span><span class="symbol">;</span><span class="normal">   </span><span class="comment">// center of H-tree</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> size </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0.5</span><span class="symbol">;</span><span class="normal">         </span><span class="comment">// side length of H-tree</span>
+<span class="normal">        </span><span class="function">draw</span><span class="symbol">(</span><span class="normal">N</span><span class="symbol">,</span><span class="normal"> x</span><span class="symbol">,</span><span class="normal"> y</span><span class="symbol">,</span><span class="normal"> size</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2000&ndash;2011, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Sun Aug  2 18:43:37 EDT 2015.
+</small></address>
+
+</html>

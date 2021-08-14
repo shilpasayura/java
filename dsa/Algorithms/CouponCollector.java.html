@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="shortcut icon" href="http://introcs.cs.princeton.edu/favicon.ico">
+<link rel="stylesheet"    href="http://introcs.cs.princeton.edu/java.css" type="text/css">
+
+<title>CouponCollector.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="CouponCollector code in Java">
+<meta NAME="TITLE" CONTENT="CouponCollector code in Java">
+<meta NAME="KEYWORDS" CONTENT="CouponCollector,java,programming,computer science,algorithm,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>CouponCollector.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "CouponCollector.java">CouponCollector.java</a>
+from <a href = "http://introcs.cs.princeton.edu/java/14array">&#167;1.4 Arrays</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> *  Compilation:  javac CouponCollector.java</span>
+<span class="comment"> *  Execution:    java CouponCollector N</span>
+<span class="comment"> *</span>
+<span class="comment"> *  Given N distinct card types, how many random cards do you need</span>
+<span class="comment"> *  do collect before you have (at least) one of each type?</span>
+<span class="comment"> *  This program simulates this random process.</span>
+<span class="comment"> *</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java CouponCollector 1000</span>
+<span class="comment"> *  6583</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java CouponCollector 1000</span>
+<span class="comment"> *  6477</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java CouponCollector 1000000</span>
+<span class="comment"> *  12782673</span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************/</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">CouponCollector</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> N </span><span class="symbol">=</span><span class="normal"> Integer</span><span class="symbol">.</span><span class="function">parseInt</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]);</span><span class="normal">   </span><span class="comment">// number of card types</span>
+<span class="normal">        </span><span class="type">boolean</span><span class="symbol">[]</span><span class="normal"> found </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="type">boolean</span><span class="symbol">[</span><span class="normal">N</span><span class="symbol">];</span><span class="normal">    </span><span class="comment">// found[i] = true if card i has been collected</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> cardcnt </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal">                     </span><span class="comment">// total number of cards collected</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> valcnt </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal">                      </span><span class="comment">// number of distinct cards</span>
+<span class="normal">  </span>
+<span class="normal">        </span><span class="comment">// repeatedly choose a random card and check whether it's a new one</span>
+<span class="normal">        </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">valcnt </span><span class="symbol">&lt;</span><span class="normal"> N</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="type">int</span><span class="normal"> val </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">Math</span><span class="symbol">.</span><span class="function">random</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> N</span><span class="symbol">);</span><span class="normal">   </span><span class="comment">// random card between 0 and N-1</span>
+<span class="normal">            cardcnt</span><span class="symbol">++;</span><span class="normal">                             </span><span class="comment">// we collected one more card</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">found</span><span class="symbol">[</span><span class="normal">val</span><span class="symbol">])</span><span class="normal"> valcnt</span><span class="symbol">++;</span><span class="normal">             </span><span class="comment">// it's a new card type</span>
+<span class="normal">            found</span><span class="symbol">[</span><span class="normal">val</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span><span class="normal">                     </span><span class="comment">// update found[]</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="comment">// print the total number of cards collected</span>
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="normal">cardcnt</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2000&ndash;2011, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Sun Aug  2 18:43:37 EDT 2015.
+</small></address>
+
+</html>

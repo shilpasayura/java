@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="shortcut icon" href="http://introcs.cs.princeton.edu/favicon.ico">
+<link rel="stylesheet"    href="http://introcs.cs.princeton.edu/java.css" type="text/css">
+
+<title>Questions.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="Questions code in Java">
+<meta NAME="TITLE" CONTENT="Questions code in Java">
+<meta NAME="KEYWORDS" CONTENT="Questions,java,programming,computer science,algorithm,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>Questions.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "Questions.java">Questions.java</a>
+from <a href = "http://introcs.cs.princeton.edu/java/42sort">&#167;4.2 Sorting and Searching</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> *  Compilation:  javac Questions.java</span>
+<span class="comment"> *  Execution:    java Questions n</span>
+<span class="comment"> *  Dependencies  StdIn.java</span>
+<span class="comment"> *</span>
+<span class="comment"> *  This code uses binary search to play the game of twenty questions.</span>
+<span class="comment"> *  It takes a command-line argument n, asks you to think of a number</span>
+<span class="comment"> *  between 0 and N-1, where N = 2^n, and always guesses the answer</span>
+<span class="comment"> *  with n questions.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  %  java Questions 7</span>
+<span class="comment"> *  Think of an integer between 0 and 127</span>
+<span class="comment"> *  Is it less than 64?  false</span>
+<span class="comment"> *  Is it less than 96?  true</span>
+<span class="comment"> *  Is it less than 80?  true</span>
+<span class="comment"> *  Is it less than 72?  false</span>
+<span class="comment"> *  Is it less than 76?  false</span>
+<span class="comment"> *  Is it less than 78?  true</span>
+<span class="comment"> *  Is it less than 77?  false</span>
+<span class="comment"> *  Your number is 77</span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************/</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Questions</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">    </span><span class="comment">// invariant: answer is in [lo, hi)</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">int</span><span class="normal"> </span><span class="function">search</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> lo</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> hi</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">hi </span><span class="symbol">-</span><span class="normal"> lo</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> lo</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> mid </span><span class="symbol">=</span><span class="normal"> lo </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">hi </span><span class="symbol">-</span><span class="normal"> lo</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">        StdOut</span><span class="symbol">.</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"Is it less than %d?  "</span><span class="symbol">,</span><span class="normal"> mid</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">StdIn</span><span class="symbol">.</span><span class="function">readBoolean</span><span class="symbol">())</span><span class="normal"> </span><span class="keyword">return</span><span class="normal"> </span><span class="function">search</span><span class="symbol">(</span><span class="normal">lo</span><span class="symbol">,</span><span class="normal"> mid</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">else</span><span class="normal">                     </span><span class="keyword">return</span><span class="normal"> </span><span class="function">search</span><span class="symbol">(</span><span class="normal">mid</span><span class="symbol">,</span><span class="normal"> hi</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> n </span><span class="symbol">=</span><span class="normal"> Integer</span><span class="symbol">.</span><span class="function">parseInt</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]);</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> N </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> Math</span><span class="symbol">.</span><span class="function">pow</span><span class="symbol">(</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> n</span><span class="symbol">);</span>
+<span class="normal">        StdOut</span><span class="symbol">.</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"Think of an integer between %d and %d</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> N</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> v </span><span class="symbol">=</span><span class="normal"> </span><span class="function">search</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> N</span><span class="symbol">);</span>
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"Your number is %d</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> v</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="cbracket">}</span>
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2000&ndash;2011, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Sun Aug  2 18:43:37 EDT 2015.
+</small></address>
+
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="shortcut icon" href="http://introcs.cs.princeton.edu/favicon.ico">
+<link rel="stylesheet"    href="http://introcs.cs.princeton.edu/java.css" type="text/css">
+
+<title>IFS.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="IFS code in Java">
+<meta NAME="TITLE" CONTENT="IFS code in Java">
+<meta NAME="KEYWORDS" CONTENT="IFS,java,programming,computer science,algorithm,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>IFS.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "IFS.java">IFS.java</a>
+from <a href = "http://introcs.cs.princeton.edu/java/22library">&#167;2.2 Libraries</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> *  Compilation:  javac IFS.java</span>
+<span class="comment"> *  Execution:    java IFS N &lt; input.txt</span>
+<span class="comment"> *  Dependencies: StdDraw.java</span>
+<span class="comment"> *</span>
+<span class="comment"> *  Here are some sample data files:</span>
+<span class="comment"> *  </span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/22library/barnsley.txt</span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/22library/binary.txt</span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/22library/culcita.txt</span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/22library/cyclosorus.txt</span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/22library/dragon.txt</span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/22library/fern-sedgewick.txt</span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/22library/fishbone.txt</span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/22library/floor.txt</span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/22library/koch.txt</span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/22library/sierpinski.txt</span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/22library/spiral.txt</span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/22library/swirl.txt</span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/22library/tree.txt</span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/22library/zigzag.txt</span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************/</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">IFS</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">        </span><span class="comment">// number of iterations</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> T </span><span class="symbol">=</span><span class="normal"> Integer</span><span class="symbol">.</span><span class="function">parseInt</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]);</span>
+
+<span class="normal">        </span><span class="comment">// probability distribution for choosing each rule</span>
+<span class="normal">        </span><span class="type">double</span><span class="symbol">[]</span><span class="normal"> dist </span><span class="symbol">=</span><span class="normal"> StdArrayIO</span><span class="symbol">.</span><span class="function">readDouble1D</span><span class="symbol">();</span>
+
+<span class="normal">        </span><span class="comment">// update matrices</span>
+<span class="normal">        </span><span class="type">double</span><span class="symbol">[][]</span><span class="normal"> cx </span><span class="symbol">=</span><span class="normal"> StdArrayIO</span><span class="symbol">.</span><span class="function">readDouble2D</span><span class="symbol">();</span>
+<span class="normal">        </span><span class="type">double</span><span class="symbol">[][]</span><span class="normal"> cy </span><span class="symbol">=</span><span class="normal"> StdArrayIO</span><span class="symbol">.</span><span class="function">readDouble2D</span><span class="symbol">();</span>
+
+<span class="normal">        </span><span class="comment">// current value of (x, y)</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> x </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0.0</span><span class="symbol">,</span><span class="normal"> y </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0.0</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="comment">// do T iterations of the chaos game</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> t </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> t </span><span class="symbol">&lt;</span><span class="normal"> T</span><span class="symbol">;</span><span class="normal"> t</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span>
+
+<span class="normal">            </span><span class="comment">// pick a random rule according to the probability distribution</span>
+<span class="normal">            </span><span class="type">int</span><span class="normal"> r </span><span class="symbol">=</span><span class="normal"> StdRandom</span><span class="symbol">.</span><span class="function">discrete</span><span class="symbol">(</span><span class="normal">dist</span><span class="symbol">);</span><span class="normal"> </span>
+
+<span class="normal">            </span><span class="comment">// do the update</span>
+<span class="normal">            </span><span class="type">double</span><span class="normal"> x0 </span><span class="symbol">=</span><span class="normal"> cx</span><span class="symbol">[</span><span class="normal">r</span><span class="symbol">][</span><span class="number">0</span><span class="symbol">]*</span><span class="normal">x </span><span class="symbol">+</span><span class="normal"> cx</span><span class="symbol">[</span><span class="normal">r</span><span class="symbol">][</span><span class="number">1</span><span class="symbol">]*</span><span class="normal">y </span><span class="symbol">+</span><span class="normal"> cx</span><span class="symbol">[</span><span class="normal">r</span><span class="symbol">][</span><span class="number">2</span><span class="symbol">];</span><span class="normal"> </span>
+<span class="normal">            </span><span class="type">double</span><span class="normal"> y0 </span><span class="symbol">=</span><span class="normal"> cy</span><span class="symbol">[</span><span class="normal">r</span><span class="symbol">][</span><span class="number">0</span><span class="symbol">]*</span><span class="normal">x </span><span class="symbol">+</span><span class="normal"> cy</span><span class="symbol">[</span><span class="normal">r</span><span class="symbol">][</span><span class="number">1</span><span class="symbol">]*</span><span class="normal">y </span><span class="symbol">+</span><span class="normal"> cy</span><span class="symbol">[</span><span class="normal">r</span><span class="symbol">][</span><span class="number">2</span><span class="symbol">];</span><span class="normal"> </span>
+<span class="normal">            x </span><span class="symbol">=</span><span class="normal"> x0</span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">            y </span><span class="symbol">=</span><span class="normal"> y0</span><span class="symbol">;</span><span class="normal"> </span>
+
+<span class="normal">            </span><span class="comment">// draw the resulting point</span>
+<span class="normal">            StdDraw</span><span class="symbol">.</span><span class="function">point</span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">,</span><span class="normal"> y</span><span class="symbol">);</span><span class="normal"> </span>
+
+<span class="normal">            </span><span class="comment">// for efficiency, display only every 100 iterations</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">t </span><span class="symbol">%</span><span class="normal"> </span><span class="number">100</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> StdDraw</span><span class="symbol">.</span><span class="function">show</span><span class="symbol">(</span><span class="number">10</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span><span class="normal"> </span>
+
+<span class="normal">        </span><span class="comment">// ensure everything gets drawn</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">show</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span>
+<span class="cbracket">}</span><span class="normal"> </span>
+
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2000&ndash;2011, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Sun Aug  2 18:43:37 EDT 2015.
+</small></address>
+
+</html>

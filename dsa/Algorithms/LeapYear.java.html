@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="shortcut icon" href="http://introcs.cs.princeton.edu/favicon.ico">
+<link rel="stylesheet"    href="http://introcs.cs.princeton.edu/java.css" type="text/css">
+
+<title>LeapYear.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="LeapYear code in Java">
+<meta NAME="TITLE" CONTENT="LeapYear code in Java">
+<meta NAME="KEYWORDS" CONTENT="LeapYear,java,programming,computer science,algorithm,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>LeapYear.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "LeapYear.java">LeapYear.java</a>
+from <a href = "http://introcs.cs.princeton.edu/java/12types">&#167;1.2 Built-in Types of Data</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> *  Compilation:  javac LeapYear.java</span>
+<span class="comment"> *  Execution:    java LeapYear N</span>
+<span class="comment"> *  </span>
+<span class="comment"> *  Prints true if N corresponds to a leap year, and false otherwise.</span>
+<span class="comment"> *  Assumes N &gt;= 1582, corresponding to a year in the Gregorian calendar.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java LeapYear 2004</span>
+<span class="comment"> *  true</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java LeapYear 1900</span>
+<span class="comment"> *  false</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java LeapYear 2000</span>
+<span class="comment"> *  true</span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************/</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">LeapYear</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> year </span><span class="symbol">=</span><span class="normal"> Integer</span><span class="symbol">.</span><span class="function">parseInt</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]);</span>
+<span class="normal">        </span><span class="type">boolean</span><span class="normal"> isLeapYear</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="comment">// divisible by 4</span>
+<span class="normal">        isLeapYear </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">year </span><span class="symbol">%</span><span class="normal"> </span><span class="number">4</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="comment">// divisible by 4 and not 100</span>
+<span class="normal">        isLeapYear </span><span class="symbol">=</span><span class="normal"> isLeapYear </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">year </span><span class="symbol">%</span><span class="normal"> </span><span class="number">100</span><span class="normal"> </span><span class="symbol">!=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="comment">// divisible by 4 and not 100 unless divisible by 400</span>
+<span class="normal">        isLeapYear </span><span class="symbol">=</span><span class="normal"> isLeapYear </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">year </span><span class="symbol">%</span><span class="normal"> </span><span class="number">400</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span>
+
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="normal">isLeapYear</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2000&ndash;2011, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Mon Aug  3 06:09:11 EDT 2015.
+</small></address>
+
+</html>

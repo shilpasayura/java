@@ -1,7 +1,11 @@
+//import other classes as packages
 import ocean.Fish;
 //import ocean.plants.Seaweed;
 //import ocean.plants.Algae;
+
 import ocean.plants.*;
+
+
 import com.shilpasayura.oceangame.Aquarium;
 
 public class Packages1 {

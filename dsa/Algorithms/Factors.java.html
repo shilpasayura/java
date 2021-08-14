@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="shortcut icon" href="http://introcs.cs.princeton.edu/favicon.ico">
+<link rel="stylesheet"    href="http://introcs.cs.princeton.edu/java.css" type="text/css">
+
+<title>Factors.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="Factors code in Java">
+<meta NAME="TITLE" CONTENT="Factors code in Java">
+<meta NAME="KEYWORDS" CONTENT="Factors,java,programming,computer science,algorithm,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>Factors.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "Factors.java">Factors.java</a>
+from <a href = "http://introcs.cs.princeton.edu/java/13flow">&#167;1.3 Conditionals and Loops</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> *  Compilation:  javac Factors.java</span>
+<span class="comment"> *  Execution:    java Factors N</span>
+<span class="comment"> *  </span>
+<span class="comment"> *  Computes the prime factorization of N using brute force.</span>
+<span class="comment"> *</span>
+<span class="comment"> *   % java Factors 81</span>
+<span class="comment"> *   The prime factorization of 81 is: 3 3 3 3 </span>
+<span class="comment"> *</span>
+<span class="comment"> *   % java Factors 168</span>
+<span class="comment"> *   The prime factorization of 168 is: 2 2 2 3 7</span>
+<span class="comment"> *</span>
+<span class="comment"> *   % java Factors 4444444444</span>
+<span class="comment"> *   The prime factorization of 4444444444 is: 2 2 11 41 271 9091 </span>
+<span class="comment"> *</span>
+<span class="comment"> *   % java Factors 4444444444444463</span>
+<span class="comment"> *   The prime factorization of 4444444444444463 is: 4444444444444463</span>
+<span class="comment"> * </span>
+<span class="comment"> *   % java Factors 10000001400000049</span>
+<span class="comment"> *   The prime factorization of 10000001400000049 is: 100000007 100000007 </span>
+<span class="comment"> *</span>
+<span class="comment"> *   % java Factors 1000000014000000049</span>
+<span class="comment"> *   The prime factorization of 1000000014000000049 is: 1000000007 1000000007</span>
+<span class="comment"> *</span>
+<span class="comment"> *   % java Factors 9201111169755555649</span>
+<span class="comment"> *   The prime factorization of 9201111169755555649 is: 3033333343 3033333343 </span>
+<span class="comment"> *</span>
+<span class="comment"> *   Can use these for timing tests - biggest 3, 6, 9, 12, 15, and 18 digit primes</span>
+<span class="comment"> *   % java Factors 997</span>
+<span class="comment"> *   % java Factors 999983</span>
+<span class="comment"> *   % java Factors 999999937</span>
+<span class="comment"> *   % java Factors 999999999989</span>
+<span class="comment"> *   % java Factors 999999999999989</span>
+<span class="comment"> *   % java Factors 999999999999999989</span>
+<span class="comment"> *</span>
+<span class="comment"> *   Remarks</span>
+<span class="comment"> *   -------</span>
+<span class="comment"> *   - Tests i*i &lt;= N instead of i &lt;= N for efficiency.</span>
+<span class="comment"> *</span>
+<span class="comment"> *   - The last two examples still take a few minutes.</span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************/</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Factors</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span>
+
+<span class="normal">        </span><span class="comment">// command-line argument</span>
+<span class="normal">        </span><span class="type">long</span><span class="normal"> n </span><span class="symbol">=</span><span class="normal"> Long</span><span class="symbol">.</span><span class="function">parseLong</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]);</span>
+
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">print</span><span class="symbol">(</span><span class="string">"The prime factorization of "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> n </span><span class="symbol">+</span><span class="normal"> </span><span class="string">" is: "</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="comment">// for each potential factor i</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">long</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">*</span><span class="normal">i </span><span class="symbol">&lt;=</span><span class="normal"> n</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">            </span><span class="comment">// if i is a factor of N, repeatedly divide it out</span>
+<span class="normal">            </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n </span><span class="symbol">%</span><span class="normal"> i </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">print</span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">+</span><span class="normal"> </span><span class="string">" "</span><span class="symbol">);</span><span class="normal"> </span>
+<span class="normal">                n </span><span class="symbol">=</span><span class="normal"> n </span><span class="symbol">/</span><span class="normal"> i</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="comment">// if biggest factor occurs only once, n &gt; 1</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n </span><span class="symbol">&gt;</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="normal">n</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">else</span><span class="normal">       System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2000&ndash;2011, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Sun Aug  2 18:43:37 EDT 2015.
+</small></address>
+
+</html>

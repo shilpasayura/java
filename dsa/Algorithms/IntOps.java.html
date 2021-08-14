@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="shortcut icon" href="http://introcs.cs.princeton.edu/favicon.ico">
+<link rel="stylesheet"    href="http://introcs.cs.princeton.edu/java.css" type="text/css">
+
+<title>IntOps.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="IntOps code in Java">
+<meta NAME="TITLE" CONTENT="IntOps code in Java">
+<meta NAME="KEYWORDS" CONTENT="IntOps,java,programming,computer science,algorithm,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>IntOps.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "IntOps.java">IntOps.java</a>
+from <a href = "http://introcs.cs.princeton.edu/java/12types">&#167;1.2 Built-in Types of Data</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> *  Compilation:  javac IntOps.java</span>
+<span class="comment"> *  Execution:    java IntOps a b</span>
+<span class="comment"> *  </span>
+<span class="comment"> *  Illustrates the integer operations a + b, a * b, a / b, and a % b.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java IntOps 1234 99</span>
+<span class="comment"> *  1234 + 99 = 1333</span>
+<span class="comment"> *  1234 * 99 = 122166</span>
+<span class="comment"> *  1234 / 99 = 12</span>
+<span class="comment"> *  1234 % 99 = 46</span>
+<span class="comment"> *  1234 = 12 * 99 + 46</span>
+<span class="comment"> * </span>
+<span class="comment"> *  % java IntOps 10 -3</span>
+<span class="comment"> *  10 + -3 = 7</span>
+<span class="comment"> *  10 * -3 = -30</span>
+<span class="comment"> *  10 / -3 = -3</span>
+<span class="comment"> *  10 % -3 = 1</span>
+<span class="comment"> *  10 = -3 * -3 + 1</span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************/</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">IntOps</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span>
+
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> a </span><span class="symbol">=</span><span class="normal"> Integer</span><span class="symbol">.</span><span class="function">parseInt</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]);</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> b </span><span class="symbol">=</span><span class="normal"> Integer</span><span class="symbol">.</span><span class="function">parseInt</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">]);</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> sum  </span><span class="symbol">=</span><span class="normal"> a </span><span class="symbol">+</span><span class="normal"> b</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> prod </span><span class="symbol">=</span><span class="normal"> a </span><span class="symbol">*</span><span class="normal"> b</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> quot </span><span class="symbol">=</span><span class="normal"> a </span><span class="symbol">/</span><span class="normal"> b</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> rem  </span><span class="symbol">=</span><span class="normal"> a </span><span class="symbol">%</span><span class="normal"> b</span><span class="symbol">;</span>
+
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="normal">a </span><span class="symbol">+</span><span class="normal"> </span><span class="string">" + "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> b </span><span class="symbol">+</span><span class="normal"> </span><span class="string">" = "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> sum</span><span class="symbol">);</span>
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="normal">a </span><span class="symbol">+</span><span class="normal"> </span><span class="string">" * "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> b </span><span class="symbol">+</span><span class="normal"> </span><span class="string">" = "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> prod</span><span class="symbol">);</span>
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="normal">a </span><span class="symbol">+</span><span class="normal"> </span><span class="string">" / "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> b </span><span class="symbol">+</span><span class="normal"> </span><span class="string">" = "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> quot</span><span class="symbol">);</span>
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="normal">a </span><span class="symbol">+</span><span class="normal"> </span><span class="string">" % "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> b </span><span class="symbol">+</span><span class="normal"> </span><span class="string">" = "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> rem</span><span class="symbol">);</span>
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="normal">a </span><span class="symbol">+</span><span class="normal"> </span><span class="string">" = "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> quot </span><span class="symbol">+</span><span class="normal"> </span><span class="string">" * "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> b </span><span class="symbol">+</span><span class="normal"> </span><span class="string">" + "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> rem</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2000&ndash;2011, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Mon Aug  3 06:09:11 EDT 2015.
+</small></address>
+
+</html>

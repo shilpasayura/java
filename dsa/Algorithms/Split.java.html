@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="shortcut icon" href="http://introcs.cs.princeton.edu/favicon.ico">
+<link rel="stylesheet"    href="http://introcs.cs.princeton.edu/java.css" type="text/css">
+
+<title>Split.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="Split code in Java">
+<meta NAME="TITLE" CONTENT="Split code in Java">
+<meta NAME="KEYWORDS" CONTENT="Split,java,programming,computer science,algorithm,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>Split.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "Split.java">Split.java</a>
+from <a href = "http://introcs.cs.princeton.edu/java/31datatype">&#167;3.1 Using Data Types</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> *  Compilation:  javac Cat.java</span>
+<span class="comment"> *  Execution:    java Split DJIA N delimiter</span>
+<span class="comment"> *  Dependencies: In.java Out.java</span>
+<span class="comment"> *</span>
+<span class="comment"> *  This program uses multiple output streams to split a CSV file</span>
+<span class="comment"> *  into separate files, one for each comma-delimited field.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % more DJIA.csv</span>
+<span class="comment"> *  ...                                                     </span>
+<span class="comment"> *  30-Oct-29,230.98,10730000,258.47</span>
+<span class="comment"> *  29-Oct-29,252.38,16410000,230.07</span>
+<span class="comment"> *  28-Oct-29,295.18,9210000,260.64</span>
+<span class="comment"> *  25-Oct-29,299.47,5920000,301.22</span>
+<span class="comment"> *</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java Split DJIA 3 "," </span>
+<span class="comment"> *  % more DJIA2</span>
+<span class="comment"> *  ...</span>
+<span class="comment"> *  10730000</span>
+<span class="comment"> *  16410000</span>
+<span class="comment"> *  9210000</span>
+<span class="comment"> *  5920000</span>
+<span class="comment"> *  ...</span>
+<span class="comment"> *  </span>
+<span class="comment"> ******************************************************************************/</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Split</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="usertype">String</span><span class="normal"> name </span><span class="symbol">=</span><span class="normal"> args</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">];</span><span class="normal">               </span><span class="comment">// base file name</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> N </span><span class="symbol">=</span><span class="normal"> Integer</span><span class="symbol">.</span><span class="function">parseInt</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">]);</span><span class="normal">   </span><span class="comment">// number of fields</span>
+<span class="normal">        </span><span class="usertype">String</span><span class="normal"> delimiter </span><span class="symbol">=</span><span class="normal"> args</span><span class="symbol">[</span><span class="number">2</span><span class="symbol">];</span><span class="normal">          </span><span class="comment">// delimiter (comma)</span>
+
+<span class="normal">        </span><span class="comment">// create one output stream for each of the N fields</span>
+<span class="normal">        Out</span><span class="symbol">[]</span><span class="normal"> out </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> Out</span><span class="symbol">[</span><span class="normal">N</span><span class="symbol">];</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> N</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            out</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="function">Out</span><span class="symbol">(</span><span class="normal">name </span><span class="symbol">+</span><span class="normal"> i</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="comment">// read in the input and divide by field</span>
+<span class="normal">        </span><span class="usertype">In</span><span class="normal"> in </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="function">In</span><span class="symbol">(</span><span class="normal">name </span><span class="symbol">+</span><span class="normal"> </span><span class="string">".csv"</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">in</span><span class="symbol">.</span><span class="function">hasNextLine</span><span class="symbol">())</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="usertype">String</span><span class="normal"> line </span><span class="symbol">=</span><span class="normal"> in</span><span class="symbol">.</span><span class="function">readLine</span><span class="symbol">();</span>
+<span class="normal">            String</span><span class="symbol">[]</span><span class="normal"> fields </span><span class="symbol">=</span><span class="normal"> line</span><span class="symbol">.</span><span class="function">split</span><span class="symbol">(</span><span class="normal">delimiter</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> N</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                out</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">].</span><span class="function">println</span><span class="symbol">(</span><span class="normal">fields</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]);</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span>
+<span class="cbracket">}</span><span class="normal"> </span>
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2000&ndash;2011, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Tue Aug  4 09:16:08 EDT 2015.
+</small></address>
+
+</html>

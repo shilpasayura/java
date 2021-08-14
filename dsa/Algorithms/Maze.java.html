@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="shortcut icon" href="http://algs4.cs.princeton.edu/favicon.ico">
+<link rel="stylesheet"    href="http://algs4.cs.princeton.edu/java.css" type="text/css">
+
+<title>Maze.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="Maze code in Java">
+<meta NAME="TITLE" CONTENT="Maze code in Java">
+<meta NAME="KEYWORDS" CONTENT="Maze,java,programming,computer science,algorithm,data structure,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>Maze.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "Maze.java">Maze.java</a>
+from <a href = "http://algs4.cs.princeton.edu/41graph">&#167;4.1 Undirected Graphs</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> *  Compilation:  javac Maze.java</span>
+<span class="comment"> *  Execution:    java Maze.java N</span>
+<span class="comment"> *  Dependencies: StdDraw.java</span>
+<span class="comment"> *</span>
+<span class="comment"> *  Generates a perfect N-by-N maze using depth-first search with a stack.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java Maze 62</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java Maze 61</span>
+<span class="comment"> *</span>
+<span class="comment"> *  Note: this program generalizes nicely to finding a random tree</span>
+<span class="comment"> *        in a graph.</span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************/</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Maze</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">private</span><span class="normal"> </span><span class="type">int</span><span class="normal"> N</span><span class="symbol">;</span><span class="normal">                 </span><span class="comment">// dimension of maze</span>
+<span class="normal">    </span><span class="keyword">private</span><span class="normal"> </span><span class="type">boolean</span><span class="symbol">[][]</span><span class="normal"> north</span><span class="symbol">;</span><span class="normal">     </span><span class="comment">// is there a wall to north of cell i, j</span>
+<span class="normal">    </span><span class="keyword">private</span><span class="normal"> </span><span class="type">boolean</span><span class="symbol">[][]</span><span class="normal"> east</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">private</span><span class="normal"> </span><span class="type">boolean</span><span class="symbol">[][]</span><span class="normal"> south</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">private</span><span class="normal"> </span><span class="type">boolean</span><span class="symbol">[][]</span><span class="normal"> west</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">private</span><span class="normal"> </span><span class="type">boolean</span><span class="symbol">[][]</span><span class="normal"> visited</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="keyword">private</span><span class="normal"> </span><span class="type">boolean</span><span class="normal"> done </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="function">Maze</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> N</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">this</span><span class="symbol">.</span><span class="normal">N </span><span class="symbol">=</span><span class="normal"> N</span><span class="symbol">;</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">setXscale</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> N</span><span class="symbol">+</span><span class="number">2</span><span class="symbol">);</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">setYscale</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">,</span><span class="normal"> N</span><span class="symbol">+</span><span class="number">2</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="function">init</span><span class="symbol">();</span>
+<span class="normal">        </span><span class="function">generate</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">private</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">init</span><span class="symbol">()</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="comment">// initialize border cells as already visited</span>
+<span class="normal">        visited </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="type">boolean</span><span class="symbol">[</span><span class="normal">N</span><span class="symbol">+</span><span class="number">2</span><span class="symbol">][</span><span class="normal">N</span><span class="symbol">+</span><span class="number">2</span><span class="symbol">];</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> x </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> x </span><span class="symbol">&lt;</span><span class="normal"> N</span><span class="symbol">+</span><span class="number">2</span><span class="symbol">;</span><span class="normal"> x</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            visited</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="number">0</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">            visited</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">N</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> y </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> y </span><span class="symbol">&lt;</span><span class="normal"> N</span><span class="symbol">+</span><span class="number">2</span><span class="symbol">;</span><span class="normal"> y</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            visited</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">            visited</span><span class="symbol">[</span><span class="normal">N</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+
+<span class="normal">        </span><span class="comment">// initialze all walls as present</span>
+<span class="normal">        north </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="type">boolean</span><span class="symbol">[</span><span class="normal">N</span><span class="symbol">+</span><span class="number">2</span><span class="symbol">][</span><span class="normal">N</span><span class="symbol">+</span><span class="number">2</span><span class="symbol">];</span>
+<span class="normal">        east  </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="type">boolean</span><span class="symbol">[</span><span class="normal">N</span><span class="symbol">+</span><span class="number">2</span><span class="symbol">][</span><span class="normal">N</span><span class="symbol">+</span><span class="number">2</span><span class="symbol">];</span>
+<span class="normal">        south </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="type">boolean</span><span class="symbol">[</span><span class="normal">N</span><span class="symbol">+</span><span class="number">2</span><span class="symbol">][</span><span class="normal">N</span><span class="symbol">+</span><span class="number">2</span><span class="symbol">];</span>
+<span class="normal">        west  </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="type">boolean</span><span class="symbol">[</span><span class="normal">N</span><span class="symbol">+</span><span class="number">2</span><span class="symbol">][</span><span class="normal">N</span><span class="symbol">+</span><span class="number">2</span><span class="symbol">];</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> x </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> x </span><span class="symbol">&lt;</span><span class="normal"> N</span><span class="symbol">+</span><span class="number">2</span><span class="symbol">;</span><span class="normal"> x</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> y </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> y </span><span class="symbol">&lt;</span><span class="normal"> N</span><span class="symbol">+</span><span class="number">2</span><span class="symbol">;</span><span class="normal"> y</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                north</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">                east</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">]</span><span class="normal">  </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">                south</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">                west</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">]</span><span class="normal">  </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+
+<span class="normal">    </span><span class="comment">// generate the maze</span>
+<span class="normal">    </span><span class="keyword">private</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">generate</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> x</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> y</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        visited</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="comment">// while there is an unvisited neighbor</span>
+<span class="normal">        </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">visited</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">visited</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">visited</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">visited</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">])</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">            </span><span class="comment">// pick random neighbor (could use Knuth's trick instead)</span>
+<span class="normal">            </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">true</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="type">double</span><span class="normal"> r </span><span class="symbol">=</span><span class="normal"> StdRandom</span><span class="symbol">.</span><span class="function">uniform</span><span class="symbol">(</span><span class="number">4</span><span class="symbol">);</span>
+<span class="normal">                </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">r </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">visited</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">])</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                    north</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">                    south</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">                    </span><span class="function">generate</span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">,</span><span class="normal"> y </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">                    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">                </span><span class="cbracket">}</span>
+<span class="normal">                </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">r </span><span class="symbol">==</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">visited</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">])</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                    east</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">                    west</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">                    </span><span class="function">generate</span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> y</span><span class="symbol">);</span>
+<span class="normal">                    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">                </span><span class="cbracket">}</span>
+<span class="normal">                </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">r </span><span class="symbol">==</span><span class="normal"> </span><span class="number">2</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">visited</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">])</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                    south</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">                    north</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">                    </span><span class="function">generate</span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">,</span><span class="normal"> y</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">                    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">                </span><span class="cbracket">}</span>
+<span class="normal">                </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">r </span><span class="symbol">==</span><span class="normal"> </span><span class="number">3</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> </span><span class="symbol">!</span><span class="normal">visited</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">])</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                    west</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">                    east</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">                    </span><span class="function">generate</span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">-</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> y</span><span class="symbol">);</span>
+<span class="normal">                    </span><span class="keyword">break</span><span class="symbol">;</span>
+<span class="normal">                </span><span class="cbracket">}</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// generate the maze starting from lower left</span>
+<span class="normal">    </span><span class="keyword">private</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">generate</span><span class="symbol">()</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="function">generate</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+
+<span class="comment">/*</span>
+<span class="comment">        // delete some random walls</span>
+<span class="comment">        for (int i = 0; i &lt; N; i++) {</span>
+<span class="comment">            int x = 1 + StdRandom.uniform(N-1);</span>
+<span class="comment">            int y = 1 + StdRandom.uniform(N-1);</span>
+<span class="comment">            north[x][y] = south[x][y+1] = false;</span>
+<span class="comment">        }</span>
+
+<span class="comment">        // add some random walls</span>
+<span class="comment">        for (int i = 0; i &lt; 10; i++) {</span>
+<span class="comment">            int x = N/2 + StdRandom.uniform(N/2);</span>
+<span class="comment">            int y = N/2 + StdRandom.uniform(N/2);</span>
+<span class="comment">            east[x][y] = west[x+1][y] = true;</span>
+<span class="comment">        }</span>
+<span class="comment">*/</span>
+<span class="normal">     </span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+
+
+<span class="normal">    </span><span class="comment">// solve the maze using depth-first search</span>
+<span class="normal">    </span><span class="keyword">private</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">solve</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> x</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> y</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">x </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> y </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> x </span><span class="symbol">==</span><span class="normal"> N</span><span class="symbol">+</span><span class="number">1</span><span class="normal"> </span><span class="symbol">||</span><span class="normal"> y </span><span class="symbol">==</span><span class="normal"> N</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">done </span><span class="symbol">||</span><span class="normal"> visited</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">])</span><span class="normal"> </span><span class="keyword">return</span><span class="symbol">;</span>
+<span class="normal">        visited</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">setPenColor</span><span class="symbol">(</span><span class="normal">StdDraw</span><span class="symbol">.</span><span class="normal">BLUE</span><span class="symbol">);</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">filledCircle</span><span class="symbol">(</span><span class="normal">x </span><span class="symbol">+</span><span class="normal"> </span><span class="number">0.5</span><span class="symbol">,</span><span class="normal"> y </span><span class="symbol">+</span><span class="normal"> </span><span class="number">0.5</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0.25</span><span class="symbol">);</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">show</span><span class="symbol">(</span><span class="number">30</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="comment">// reached middle</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">x </span><span class="symbol">==</span><span class="normal"> N</span><span class="symbol">/</span><span class="number">2</span><span class="normal"> </span><span class="symbol">&amp;&amp;</span><span class="normal"> y </span><span class="symbol">==</span><span class="normal"> N</span><span class="symbol">/</span><span class="number">2</span><span class="symbol">)</span><span class="normal"> done </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">true</span><span class="symbol">;</span>
+
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">north</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">])</span><span class="normal"> </span><span class="function">solve</span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">,</span><span class="normal"> y </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">east</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">])</span><span class="normal">  </span><span class="function">solve</span><span class="symbol">(</span><span class="normal">x </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> y</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">south</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">])</span><span class="normal"> </span><span class="function">solve</span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">,</span><span class="normal"> y </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">west</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">])</span><span class="normal">  </span><span class="function">solve</span><span class="symbol">(</span><span class="normal">x </span><span class="symbol">-</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> y</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">done</span><span class="symbol">)</span><span class="normal"> </span><span class="keyword">return</span><span class="symbol">;</span>
+
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">setPenColor</span><span class="symbol">(</span><span class="normal">StdDraw</span><span class="symbol">.</span><span class="normal">GRAY</span><span class="symbol">);</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">filledCircle</span><span class="symbol">(</span><span class="normal">x </span><span class="symbol">+</span><span class="normal"> </span><span class="number">0.5</span><span class="symbol">,</span><span class="normal"> y </span><span class="symbol">+</span><span class="normal"> </span><span class="number">0.5</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0.25</span><span class="symbol">);</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">show</span><span class="symbol">(</span><span class="number">30</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// solve the maze starting from the start state</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">solve</span><span class="symbol">()</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> x </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> x </span><span class="symbol">&lt;=</span><span class="normal"> N</span><span class="symbol">;</span><span class="normal"> x</span><span class="symbol">++)</span>
+<span class="normal">            </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> y </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> y </span><span class="symbol">&lt;=</span><span class="normal"> N</span><span class="symbol">;</span><span class="normal"> y</span><span class="symbol">++)</span>
+<span class="normal">                visited</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">        done </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">false</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="function">solve</span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// draw the maze</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">draw</span><span class="symbol">()</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">setPenColor</span><span class="symbol">(</span><span class="normal">StdDraw</span><span class="symbol">.</span><span class="normal">RED</span><span class="symbol">);</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">filledCircle</span><span class="symbol">(</span><span class="normal">N</span><span class="symbol">/</span><span class="number">2.0</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">0.5</span><span class="symbol">,</span><span class="normal"> N</span><span class="symbol">/</span><span class="number">2.0</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">0.5</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0.375</span><span class="symbol">);</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">filledCircle</span><span class="symbol">(</span><span class="number">1.5</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1.5</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0.375</span><span class="symbol">);</span>
+
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">setPenColor</span><span class="symbol">(</span><span class="normal">StdDraw</span><span class="symbol">.</span><span class="normal">BLACK</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> x </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> x </span><span class="symbol">&lt;=</span><span class="normal"> N</span><span class="symbol">;</span><span class="normal"> x</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> y </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="symbol">;</span><span class="normal"> y </span><span class="symbol">&lt;=</span><span class="normal"> N</span><span class="symbol">;</span><span class="normal"> y</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">south</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">])</span><span class="normal"> StdDraw</span><span class="symbol">.</span><span class="function">line</span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">,</span><span class="normal"> y</span><span class="symbol">,</span><span class="normal"> x </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> y</span><span class="symbol">);</span>
+<span class="normal">                </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">north</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">])</span><span class="normal"> StdDraw</span><span class="symbol">.</span><span class="function">line</span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">,</span><span class="normal"> y </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> x </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> y </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">                </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">west</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">])</span><span class="normal">  StdDraw</span><span class="symbol">.</span><span class="function">line</span><span class="symbol">(</span><span class="normal">x</span><span class="symbol">,</span><span class="normal"> y</span><span class="symbol">,</span><span class="normal"> x</span><span class="symbol">,</span><span class="normal"> y </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">                </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">east</span><span class="symbol">[</span><span class="normal">x</span><span class="symbol">][</span><span class="normal">y</span><span class="symbol">])</span><span class="normal">  StdDraw</span><span class="symbol">.</span><span class="function">line</span><span class="symbol">(</span><span class="normal">x </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> y</span><span class="symbol">,</span><span class="normal"> x </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">,</span><span class="normal"> y </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">show</span><span class="symbol">(</span><span class="number">1000</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+
+
+<span class="normal">    </span><span class="comment">// a test client</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> N </span><span class="symbol">=</span><span class="normal"> Integer</span><span class="symbol">.</span><span class="function">parseInt</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]);</span>
+<span class="normal">        </span><span class="usertype">Maze</span><span class="normal"> maze </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="function">Maze</span><span class="symbol">(</span><span class="normal">N</span><span class="symbol">);</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">show</span><span class="symbol">(</span><span class="number">0</span><span class="symbol">);</span>
+<span class="normal">        maze</span><span class="symbol">.</span><span class="function">draw</span><span class="symbol">();</span>
+<span class="normal">        maze</span><span class="symbol">.</span><span class="function">solve</span><span class="symbol">();</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="cbracket">}</span>
+
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-2");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2002&ndash;2010, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Wed Aug 26 07:22:59 EDT 2015.
+</small></address>
+
+</html>

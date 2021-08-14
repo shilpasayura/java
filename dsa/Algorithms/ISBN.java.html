@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="shortcut icon" href="http://introcs.cs.princeton.edu/favicon.ico">
+<link rel="stylesheet"    href="http://introcs.cs.princeton.edu/java.css" type="text/css">
+
+<title>ISBN.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="ISBN code in Java">
+<meta NAME="TITLE" CONTENT="ISBN code in Java">
+<meta NAME="KEYWORDS" CONTENT="ISBN,java,programming,computer science,algorithm,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>ISBN.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "ISBN.java">ISBN.java</a>
+from <a href = "http://introcs.cs.princeton.edu/java/13flow">&#167;1.3 Conditionals and Loops</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> *  Compilation:  javac ISBN.java</span>
+<span class="comment"> *  Execution:    java ISBN N</span>
+<span class="comment"> *  </span>
+<span class="comment"> *  Determines the check digit of an ISBN number given the first 9 digits.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  An ISBN number is legal if it consists of 10 digits and</span>
+<span class="comment"> *  d_1 + 2*d_2 + 3*d_3 + ... + 10*d_10 is a multiple of 11.</span>
+<span class="comment"> *  For example, 0-201-31452-5 is legal since</span>
+<span class="comment"> *  1*5 + 2*2 + 3*5 + 4*4 + 5*1 + 6*3 + 7*1 + 8*0 + 9*2 + 10*0 = 88</span>
+<span class="comment"> *  and 88 is a multiple of 11.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  Sample execution:</span>
+<span class="comment"> *</span>
+<span class="comment"> *       % java ISBN 020131452</span>
+<span class="comment"> *       The full ISBN number is 201314525.</span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************/</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">ISBN</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span>
+
+<span class="normal">        </span><span class="comment">// read in one command-line argument</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> N </span><span class="symbol">=</span><span class="normal"> Integer</span><span class="symbol">.</span><span class="function">parseInt</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]);</span>
+
+<span class="normal">        </span><span class="comment">// compute the weighted sum of the digits, from right to left</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> sum </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">2</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;=</span><span class="normal"> </span><span class="number">10</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            </span><span class="type">int</span><span class="normal"> digit </span><span class="symbol">=</span><span class="normal"> N </span><span class="symbol">%</span><span class="normal"> </span><span class="number">10</span><span class="symbol">;</span><span class="normal">                </span><span class="comment">// rightmost digit</span>
+<span class="normal">            sum </span><span class="symbol">=</span><span class="normal"> sum </span><span class="symbol">+</span><span class="normal"> i </span><span class="symbol">*</span><span class="normal"> digit</span><span class="symbol">;</span>
+<span class="normal">            N </span><span class="symbol">=</span><span class="normal"> N </span><span class="symbol">/</span><span class="normal"> </span><span class="number">10</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">     </span>
+<span class="normal">        </span><span class="comment">// print out check digit, use X for 10</span>
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">print</span><span class="symbol">(</span><span class="string">"The full ISBN number is "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> args</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]);</span>
+<span class="normal">        </span><span class="keyword">if</span><span class="normal">      </span><span class="symbol">(</span><span class="normal">sum </span><span class="symbol">%</span><span class="normal"> </span><span class="number">11</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">1</span><span class="symbol">)</span><span class="normal"> System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="string">"X"</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">sum </span><span class="symbol">%</span><span class="normal"> </span><span class="number">11</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span><span class="normal"> System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="string">"0"</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="keyword">else</span><span class="normal">                    System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="number">11</span><span class="normal"> </span><span class="symbol">-</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">sum </span><span class="symbol">%</span><span class="normal"> </span><span class="number">11</span><span class="symbol">));</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2000&ndash;2011, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Mon Aug  3 06:09:11 EDT 2015.
+</small></address>
+
+</html>

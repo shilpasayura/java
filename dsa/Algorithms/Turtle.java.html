@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="shortcut icon" href="http://introcs.cs.princeton.edu/favicon.ico">
+<link rel="stylesheet"    href="http://introcs.cs.princeton.edu/java.css" type="text/css">
+
+<title>Turtle.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="Turtle code in Java">
+<meta NAME="TITLE" CONTENT="Turtle code in Java">
+<meta NAME="KEYWORDS" CONTENT="Turtle,java,programming,computer science,algorithm,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>Turtle.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "Turtle.java">Turtle.java</a>
+from <a href = "http://introcs.cs.princeton.edu/java/32class">&#167;3.2 Creating Data Types</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> *  Compilation:  javac Turtle.java</span>
+<span class="comment"> *  Execution:    java Turtle</span>
+<span class="comment"> *</span>
+<span class="comment"> *  Data type for turtle graphics using standard draw.</span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************/</span>
+
+<span class="preproc">import</span><span class="normal"> java</span><span class="symbol">.</span><span class="normal">awt</span><span class="symbol">.</span><span class="normal">Color</span><span class="symbol">;</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Turtle</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">private</span><span class="normal"> </span><span class="type">double</span><span class="normal"> x</span><span class="symbol">,</span><span class="normal"> y</span><span class="symbol">;</span><span class="normal">     </span><span class="comment">// turtle is at (x, y)</span>
+<span class="normal">    </span><span class="keyword">private</span><span class="normal"> </span><span class="type">double</span><span class="normal"> angle</span><span class="symbol">;</span><span class="normal">    </span><span class="comment">// facing this many degrees counterclockwise from the x-axis</span>
+
+<span class="normal">    </span><span class="comment">// start at (x0, y0), facing a0 degrees counterclockwise from the x-axis</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="function">Turtle</span><span class="symbol">(</span><span class="type">double</span><span class="normal"> x0</span><span class="symbol">,</span><span class="normal"> </span><span class="type">double</span><span class="normal"> y0</span><span class="symbol">,</span><span class="normal"> </span><span class="type">double</span><span class="normal"> a0</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        x </span><span class="symbol">=</span><span class="normal"> x0</span><span class="symbol">;</span>
+<span class="normal">        y </span><span class="symbol">=</span><span class="normal"> y0</span><span class="symbol">;</span>
+<span class="normal">        angle </span><span class="symbol">=</span><span class="normal"> a0</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// rotate orientation delta degrees counterclockwise</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">turnLeft</span><span class="symbol">(</span><span class="type">double</span><span class="normal"> delta</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        angle </span><span class="symbol">+=</span><span class="normal"> delta</span><span class="symbol">;</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// move forward the given amount, with the pen down</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">goForward</span><span class="symbol">(</span><span class="type">double</span><span class="normal"> step</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> oldx </span><span class="symbol">=</span><span class="normal"> x</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> oldy </span><span class="symbol">=</span><span class="normal"> y</span><span class="symbol">;</span>
+<span class="normal">        x </span><span class="symbol">+=</span><span class="normal"> step </span><span class="symbol">*</span><span class="normal"> Math</span><span class="symbol">.</span><span class="function">cos</span><span class="symbol">(</span><span class="normal">Math</span><span class="symbol">.</span><span class="function">toRadians</span><span class="symbol">(</span><span class="normal">angle</span><span class="symbol">));</span>
+<span class="normal">        y </span><span class="symbol">+=</span><span class="normal"> step </span><span class="symbol">*</span><span class="normal"> Math</span><span class="symbol">.</span><span class="function">sin</span><span class="symbol">(</span><span class="normal">Math</span><span class="symbol">.</span><span class="function">toRadians</span><span class="symbol">(</span><span class="normal">angle</span><span class="symbol">));</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">line</span><span class="symbol">(</span><span class="normal">oldx</span><span class="symbol">,</span><span class="normal"> oldy</span><span class="symbol">,</span><span class="normal"> x</span><span class="symbol">,</span><span class="normal"> y</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="comment">// pause t milliseconds</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">pause</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> t</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">show</span><span class="symbol">(</span><span class="normal">t</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">setPenColor</span><span class="symbol">(</span><span class="usertype">Color</span><span class="normal"> color</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">setPenColor</span><span class="symbol">(</span><span class="normal">color</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">setPenRadius</span><span class="symbol">(</span><span class="type">double</span><span class="normal"> radius</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">setPenRadius</span><span class="symbol">(</span><span class="normal">radius</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">setCanvasSize</span><span class="symbol">(</span><span class="type">int</span><span class="normal"> width</span><span class="symbol">,</span><span class="normal"> </span><span class="type">int</span><span class="normal"> height</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">setCanvasSize</span><span class="symbol">(</span><span class="normal">width</span><span class="symbol">,</span><span class="normal"> height</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">setXscale</span><span class="symbol">(</span><span class="type">double</span><span class="normal"> min</span><span class="symbol">,</span><span class="normal"> </span><span class="type">double</span><span class="normal"> max</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">setXscale</span><span class="symbol">(</span><span class="normal">min</span><span class="symbol">,</span><span class="normal"> max</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">setYscale</span><span class="symbol">(</span><span class="type">double</span><span class="normal"> min</span><span class="symbol">,</span><span class="normal"> </span><span class="type">double</span><span class="normal"> max</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        StdDraw</span><span class="symbol">.</span><span class="function">setYscale</span><span class="symbol">(</span><span class="normal">min</span><span class="symbol">,</span><span class="normal"> max</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+
+<span class="normal">    </span><span class="comment">// sample client for testing</span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> x0 </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0.5</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> y0 </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0.0</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> a0 </span><span class="symbol">=</span><span class="normal"> </span><span class="number">60.0</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> step </span><span class="symbol">=</span><span class="normal"> Math</span><span class="symbol">.</span><span class="function">sqrt</span><span class="symbol">(</span><span class="number">3</span><span class="symbol">)/</span><span class="number">2</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="usertype">Turtle</span><span class="normal"> turtle  </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="function">Turtle</span><span class="symbol">(</span><span class="normal">x0</span><span class="symbol">,</span><span class="normal"> y0</span><span class="symbol">,</span><span class="normal"> a0</span><span class="symbol">);</span>
+<span class="normal">        turtle</span><span class="symbol">.</span><span class="function">goForward</span><span class="symbol">(</span><span class="normal">step</span><span class="symbol">);</span>
+<span class="normal">        turtle</span><span class="symbol">.</span><span class="function">turnLeft</span><span class="symbol">(</span><span class="number">120.0</span><span class="symbol">);</span>
+<span class="normal">        turtle</span><span class="symbol">.</span><span class="function">goForward</span><span class="symbol">(</span><span class="normal">step</span><span class="symbol">);</span>
+<span class="normal">        turtle</span><span class="symbol">.</span><span class="function">turnLeft</span><span class="symbol">(</span><span class="number">120.0</span><span class="symbol">);</span>
+<span class="normal">        turtle</span><span class="symbol">.</span><span class="function">goForward</span><span class="symbol">(</span><span class="normal">step</span><span class="symbol">);</span>
+<span class="normal">        turtle</span><span class="symbol">.</span><span class="function">turnLeft</span><span class="symbol">(</span><span class="number">120.0</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="cbracket">}</span>
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2000&ndash;2011, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Sun Aug  2 18:43:37 EDT 2015.
+</small></address>
+
+</html>

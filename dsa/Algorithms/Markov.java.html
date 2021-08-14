@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="shortcut icon" href="http://introcs.cs.princeton.edu/favicon.ico">
+<link rel="stylesheet"    href="http://introcs.cs.princeton.edu/java.css" type="text/css">
+
+<title>Markov.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="Markov code in Java">
+<meta NAME="TITLE" CONTENT="Markov code in Java">
+<meta NAME="KEYWORDS" CONTENT="Markov,java,programming,computer science,algorithm,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>Markov.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "Markov.java">Markov.java</a>
+from <a href = "http://introcs.cs.princeton.edu/java/16pagerank">&#167;1.6 Case Study: PageRank</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> *  Compilation:  javac Markov.java</span>
+<span class="comment"> *  Execution:    java Markov T</span>
+<span class="comment"> *  Data files:   </span><span class="url">http://introcs.cs.princeton.edu/16pagerank/tiny.txt</span>
+<span class="comment"> *                </span><span class="url">http://introcs.cs.princeton.edu/16pagerank/medium.txt</span>
+<span class="comment"> *</span>
+<span class="comment"> *  This program reads a transition matrix from standard input and</span>
+<span class="comment"> *  computes the probabilities that a random surfer lands on each page</span>
+<span class="comment"> *  (page ranks) after T matrix-vector multiplies.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java Transition &lt; tiny.txt | java Markov 40</span>
+<span class="comment"> *   0.27303 0.26573 0.14618 0.24723 0.06783</span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************/</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Markov</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> T </span><span class="symbol">=</span><span class="normal"> Integer</span><span class="symbol">.</span><span class="function">parseInt</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]);</span><span class="normal">    </span><span class="comment">// number of iterations</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> N </span><span class="symbol">=</span><span class="normal"> StdIn</span><span class="symbol">.</span><span class="function">readInt</span><span class="symbol">();</span><span class="normal">              </span><span class="comment">// number of pages</span>
+<span class="normal">        StdIn</span><span class="symbol">.</span><span class="function">readInt</span><span class="symbol">();</span><span class="normal">                      </span><span class="comment">// ignore integer required by input format</span>
+
+
+<span class="normal">        </span><span class="comment">// Read p[][] from StdIn. </span>
+<span class="normal">        </span><span class="type">double</span><span class="symbol">[][]</span><span class="normal"> p </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="type">double</span><span class="symbol">[</span><span class="normal">N</span><span class="symbol">][</span><span class="normal">N</span><span class="symbol">];</span><span class="normal">     </span><span class="comment">// p[i][j] = prob. surfer moves from page i to page j</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> N</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span>
+<span class="normal">            </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> j </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> j </span><span class="symbol">&lt;</span><span class="normal"> N</span><span class="symbol">;</span><span class="normal"> j</span><span class="symbol">++)</span><span class="normal"> </span>
+<span class="normal">                p</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">][</span><span class="normal">j</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> StdIn</span><span class="symbol">.</span><span class="function">readDouble</span><span class="symbol">();</span><span class="normal"> </span>
+
+<span class="normal">        </span><span class="comment">// Use the power method to compute page ranks. </span>
+<span class="normal">        </span><span class="type">double</span><span class="symbol">[]</span><span class="normal"> rank </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="type">double</span><span class="symbol">[</span><span class="normal">N</span><span class="symbol">];</span><span class="normal"> </span>
+<span class="normal">        rank</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1.0</span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> t </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> t </span><span class="symbol">&lt;</span><span class="normal"> T</span><span class="symbol">;</span><span class="normal"> t</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">            </span><span class="comment">// Compute effect of next move on page ranks. </span>
+<span class="normal">            </span><span class="type">double</span><span class="symbol">[]</span><span class="normal"> newRank </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="type">double</span><span class="symbol">[</span><span class="normal">N</span><span class="symbol">];</span><span class="normal"> </span>
+<span class="normal">            </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> j </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> j </span><span class="symbol">&lt;</span><span class="normal"> N</span><span class="symbol">;</span><span class="normal"> j</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                </span><span class="comment">//  New rank of page j is dot product of old ranks and column j of p[][]. </span>
+<span class="normal">                </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> k </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> k </span><span class="symbol">&lt;</span><span class="normal"> N</span><span class="symbol">;</span><span class="normal"> k</span><span class="symbol">++)</span><span class="normal"> </span>
+<span class="normal">                   newRank</span><span class="symbol">[</span><span class="normal">j</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">+=</span><span class="normal"> rank</span><span class="symbol">[</span><span class="normal">k</span><span class="symbol">]*</span><span class="normal">p</span><span class="symbol">[</span><span class="normal">k</span><span class="symbol">][</span><span class="normal">j</span><span class="symbol">];</span><span class="normal"> </span>
+<span class="normal">            </span><span class="cbracket">}</span><span class="normal"> </span>
+
+<span class="normal">            </span><span class="comment">// Update page ranks.</span>
+<span class="normal">            rank </span><span class="symbol">=</span><span class="normal"> newRank</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span><span class="normal"> </span>
+
+<span class="normal">        </span><span class="comment">// print page ranks</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> N</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            StdOut</span><span class="symbol">.</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"%8.5f"</span><span class="symbol">,</span><span class="normal"> rank</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]);</span><span class="normal">  </span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">        StdOut</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">();</span>
+
+<span class="normal">        StdOut</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">();</span><span class="normal"> </span>
+<span class="normal">        </span><span class="comment">// print page ranks</span>
+<span class="normal">        </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> N</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            StdOut</span><span class="symbol">.</span><span class="function">printf</span><span class="symbol">(</span><span class="string">"%2d  %5.3f</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> i</span><span class="symbol">,</span><span class="normal"> rank</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]);</span><span class="normal">  </span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span><span class="normal"> </span>
+<span class="cbracket">}</span><span class="normal"> </span>
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2000&ndash;2011, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Mon Nov  9 12:39:10 EST 2015.
+</small></address>
+
+</html>

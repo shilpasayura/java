@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="shortcut icon" href="http://introcs.cs.princeton.edu/favicon.ico">
+<link rel="stylesheet"    href="http://introcs.cs.princeton.edu/java.css" type="text/css">
+
+<title>Sqrt.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="Sqrt code in Java">
+<meta NAME="TITLE" CONTENT="Sqrt code in Java">
+<meta NAME="KEYWORDS" CONTENT="Sqrt,java,programming,computer science,algorithm,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>Sqrt.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "Sqrt.java">Sqrt.java</a>
+from <a href = "http://introcs.cs.princeton.edu/java/13flow">&#167;1.3 Conditionals and Loops</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> *  Compilation:  javac Sqrt.java</span>
+<span class="comment"> *  Execution:    java Sqrt c</span>
+<span class="comment"> *  </span>
+<span class="comment"> *  Computes the square root of a nonnegative number c using</span>
+<span class="comment"> *  Newton's method:</span>
+<span class="comment"> *     - initialize t = c</span>
+<span class="comment"> *     - replace t with the average of c/t and t</span>
+<span class="comment"> *     - repeat until desired accuracy reached</span>
+<span class="comment"> * </span>
+<span class="comment"> *  % java Sqrt 2</span>
+<span class="comment"> *  1.414213562373095</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java Sqrt 1000000</span>
+<span class="comment"> *  1000.0</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java Sqrt 0.4</span>
+<span class="comment"> *  0.6324555320336759</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java Sqrt 1048575</span>
+<span class="comment"> *  1023.9995117186336</span>
+<span class="comment"> * </span>
+<span class="comment"> *  % java Sqrt 16664444</span>
+<span class="comment"> *  4082.2106756021303</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java Sqrt 0</span>
+<span class="comment"> *  0.0</span>
+<span class="comment"> * </span>
+<span class="comment"> *  % java Sqrt 1e-50</span>
+<span class="comment"> *  9.999999999999999E-26</span>
+<span class="comment"> *</span>
+<span class="comment"> *</span>
+<span class="comment"> *  Remarks</span>
+<span class="comment"> *  ----------</span>
+<span class="comment"> *   - using Math.abs() is required if c &lt; 1</span>
+<span class="comment"> *</span>
+<span class="comment"> *</span>
+<span class="comment"> *  Known bugs</span>
+<span class="comment"> *  ----------</span>
+<span class="comment"> *   - goes into an infinite loop if the input is negative</span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************/</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Sqrt</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span>
+
+<span class="normal">        </span><span class="comment">// read in the command-line argument</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> c </span><span class="symbol">=</span><span class="normal"> Double</span><span class="symbol">.</span><span class="function">parseDouble</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]);</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> epsilon </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1e-15</span><span class="symbol">;</span><span class="normal">    </span><span class="comment">// relative error tolerance</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> t </span><span class="symbol">=</span><span class="normal"> c</span><span class="symbol">;</span><span class="normal">              </span><span class="comment">// estimate of the square root of c</span>
+
+<span class="normal">        </span><span class="comment">// repeatedly apply Newton update step until desired precision is achieved</span>
+<span class="normal">        </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">Math</span><span class="symbol">.</span><span class="function">abs</span><span class="symbol">(</span><span class="normal">t </span><span class="symbol">-</span><span class="normal"> c</span><span class="symbol">/</span><span class="normal">t</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&gt;</span><span class="normal"> epsilon</span><span class="symbol">*</span><span class="normal">t</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">            t </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">c</span><span class="symbol">/</span><span class="normal">t </span><span class="symbol">+</span><span class="normal"> t</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> </span><span class="number">2.0</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+
+<span class="normal">        </span><span class="comment">// print out the estimate of the square root of c</span>
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="normal">t</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+
+<span class="cbracket">}</span>
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2000&ndash;2011, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Mon Aug  3 06:09:11 EDT 2015.
+</small></address>
+
+</html>

@@ -1,0 +1,110 @@
+Creating a Jar file
+A java package is a group of classes, interfaces and sub-packages. They may be in different folders.
+
+Syntax
+jar [OPTION ...] [ [--release VERSION] [-C dir] files]
+
+https://docs.oracle.com/en/java/javase/13/docs/specs/man/jar.html
+
+-c Creates the archive.
+-i=FILE Generates index information
+-t Lists the contents of Jar
+-u Updates a JAR file
+-x Extracts the named (or all) files
+-d Prints module name.
+
+
+1.0 Compile the Java Source
+Syntax 
+javac [options] [sourcefiles-or-classnames]
+
+https://docs.oracle.com/en/java/javase/13/docs/specs/man/javac.html
+
+
+2.0 Put the java source files in sources.txt .
+
+Our package example has following file structure.
+
+JarPack.java
+  |-com
+     |-shilpasayura
+        |-oceangame
+           |-Aquarium.java
+ocean
+ |-plants
+    |-Algae.java
+    |-Seaweed.java
+ |-Fish.java
+
+sources.txt should be like below.
+
+JarPack.java
+com\shilpasayura\oceangame\Aquarium.java
+ocean\plants\Algae.java
+ocean\plants\Seaweed.java
+ocean\Fish.java
+
+3.0 Complie the package.
+
+javac @sources.txt
+
+Run Java program
+
+java -cp . JarPack
+
+output :
+Fish
+Seaweed
+Algee
+Aquarium
+
+4.0 Creating the Jar file.
+
+The jar command creates Java archive for deployment. 
+It takes extension *.jar, but based on ZIP format.
+
+4.1 create manifest.txt file
+
+Manifest-Version: 1.0
+Created-By: 1.7.0_06 (Oracle Corporation)
+Main-Class: JarPack
+
+* make sure extra empty line in manifest.txt
+
+4.2 Create the classes.txt and put all the java class files in it. 
+
+JarPack.class
+com\shilpasayura\oceangame\Aquarium.class
+ocean\plants\Algae.class
+ocean\plants\Seaweed.class
+ocean\Fish.class
+
+5.0 compile the package to package.jar
+
+jar cfm package.jar manifest.txt @classes.txt
+
+6.0 List the content of package.jar file
+
+jar -tf package.jar
+
+com/shilpasayura/oceangame/Aquarium.class
+JarPack.class
+META-INF/MANIFEST.MF
+ocean/Fish.class
+ocean/plants/
+ocean/plants/Algae.class
+ocean/plants/Seaweed.class
+
+7.0 Run the package.jar file
+
+java -jar package.jar
+ 
+8.0 It runs! 
+
+9.0 Copy and paste it anywhere.
+
+9.1 test it again! 
+
+java -jar package.jar
+
+10.0 Do this process again!

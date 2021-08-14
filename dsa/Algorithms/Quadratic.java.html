@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="shortcut icon" href="http://introcs.cs.princeton.edu/favicon.ico">
+<link rel="stylesheet"    href="http://introcs.cs.princeton.edu/java.css" type="text/css">
+
+<title>Quadratic.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="Quadratic code in Java">
+<meta NAME="TITLE" CONTENT="Quadratic code in Java">
+<meta NAME="KEYWORDS" CONTENT="Quadratic,java,programming,computer science,algorithm,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>Quadratic.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "Quadratic.java">Quadratic.java</a>
+from <a href = "http://introcs.cs.princeton.edu/java/12types">&#167;1.2 Built-in Types of Data</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> *  Compilation:  javac Quadratic.java</span>
+<span class="comment"> *  Execution:    java Quadatic b c</span>
+<span class="comment"> *  </span>
+<span class="comment"> *  Given b and c, solves for the roots of x*x + b*x + c.</span>
+<span class="comment"> *  Assumes both roots are real valued.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java Quadratic -3.0 2.0</span>
+<span class="comment"> *  2.0</span>
+<span class="comment"> *  1.0</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java Quadratic -1.0 -1.0</span>
+<span class="comment"> *  1.618033988749895</span>
+<span class="comment"> *  -0.6180339887498949</span>
+<span class="comment"> *</span>
+<span class="comment"> *  Remark:  1.6180339... is the golden ratio.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java Quadratic 1.0 1.0</span>
+<span class="comment"> *  NaN</span>
+<span class="comment"> *  NaN</span>
+<span class="comment"> *</span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************/</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">Quadratic</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span>
+
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> b </span><span class="symbol">=</span><span class="normal"> Double</span><span class="symbol">.</span><span class="function">parseDouble</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]);</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> c </span><span class="symbol">=</span><span class="normal"> Double</span><span class="symbol">.</span><span class="function">parseDouble</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="number">1</span><span class="symbol">]);</span>
+
+<span class="normal">        </span><span class="type">double</span><span class="normal"> discriminant </span><span class="symbol">=</span><span class="normal"> b</span><span class="symbol">*</span><span class="normal">b </span><span class="symbol">-</span><span class="normal"> </span><span class="number">4.0</span><span class="symbol">*</span><span class="normal">c</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> sqroot </span><span class="symbol">=</span><span class="normal">  Math</span><span class="symbol">.</span><span class="function">sqrt</span><span class="symbol">(</span><span class="normal">discriminant</span><span class="symbol">);</span>
+
+<span class="normal">        </span><span class="type">double</span><span class="normal"> root1 </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(-</span><span class="normal">b </span><span class="symbol">+</span><span class="normal"> sqroot</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> </span><span class="number">2.0</span><span class="symbol">;</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> root2 </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(-</span><span class="normal">b </span><span class="symbol">-</span><span class="normal"> sqroot</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">/</span><span class="normal"> </span><span class="number">2.0</span><span class="symbol">;</span>
+
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="normal">root1</span><span class="symbol">);</span>
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="normal">root2</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2000&ndash;2011, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Sun Aug  2 18:43:37 EDT 2015.
+</small></address>
+
+</html>

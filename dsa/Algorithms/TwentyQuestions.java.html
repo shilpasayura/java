@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="shortcut icon" href="http://introcs.cs.princeton.edu/favicon.ico">
+<link rel="stylesheet"    href="http://introcs.cs.princeton.edu/java.css" type="text/css">
+
+<title>TwentyQuestions.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="TwentyQuestions code in Java">
+<meta NAME="TITLE" CONTENT="TwentyQuestions code in Java">
+<meta NAME="KEYWORDS" CONTENT="TwentyQuestions,java,programming,computer science,algorithm,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>TwentyQuestions.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "TwentyQuestions.java">TwentyQuestions.java</a>
+from <a href = "http://introcs.cs.princeton.edu/java/15inout">&#167;1.5 Input and Output</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> *  Compilation:  javac TwentyQuestions.java</span>
+<span class="comment"> *  Execution:    java TwentyQuestions</span>
+<span class="comment"> *  Dependencies  StdIn.java</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java TwentyQuestions </span>
+<span class="comment"> *  I'm thinking of a number between 1 and 1,000,000 </span>
+<span class="comment"> *  What's your guess? 500000 </span>
+<span class="comment"> *  Too high </span>
+<span class="comment"> *  What's your guess? 250000 </span>
+<span class="comment"> *  Too low </span>
+<span class="comment"> *  What's your guess? 375000 </span>
+<span class="comment"> *  Too high </span>
+<span class="comment"> *  What's your guess? 312500 </span>
+<span class="comment"> *  Too high </span>
+<span class="comment"> *  What's your guess? 300500 </span>
+<span class="comment"> *  Too low </span>
+<span class="comment"> *  ... </span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************/</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">TwentyQuestions</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">        </span><span class="comment">// Generate a number and answer questions</span>
+<span class="normal">        </span><span class="comment">// while the user tries to guess the value.</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> N </span><span class="symbol">=</span><span class="normal"> </span><span class="number">1</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">Math</span><span class="symbol">.</span><span class="function">random</span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> </span><span class="number">1000000</span><span class="symbol">);</span>
+
+<span class="normal">        StdOut</span><span class="symbol">.</span><span class="function">print</span><span class="symbol">(</span><span class="string">"I'm thinking of a number "</span><span class="symbol">);</span>
+<span class="normal">        StdOut</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="string">"between 1 and 1,000,000"</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> m </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> </span>
+<span class="normal">        </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">m </span><span class="symbol">!=</span><span class="normal"> N</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">            </span><span class="comment">// Solicit one guess and provide one answer</span>
+<span class="normal">            StdOut</span><span class="symbol">.</span><span class="function">print</span><span class="symbol">(</span><span class="string">"What's your guess? "</span><span class="symbol">);</span>
+<span class="normal">            m </span><span class="symbol">=</span><span class="normal"> StdIn</span><span class="symbol">.</span><span class="function">readInt</span><span class="symbol">();</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">m </span><span class="symbol">==</span><span class="normal"> N</span><span class="symbol">)</span><span class="normal"> StdOut</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="string">"You win!"</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">m </span><span class="symbol">&lt;</span><span class="normal"> N</span><span class="symbol">)</span><span class="normal">  StdOut</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="string">"Too low "</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">m </span><span class="symbol">&gt;</span><span class="normal"> N</span><span class="symbol">)</span><span class="normal">  StdOut</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="string">"Too high"</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span><span class="normal"> </span>
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2000&ndash;2011, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Mon Aug  3 06:23:27 EDT 2015.
+</small></address>
+
+</html>

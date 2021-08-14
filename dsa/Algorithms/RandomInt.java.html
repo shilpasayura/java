@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="shortcut icon" href="http://introcs.cs.princeton.edu/favicon.ico">
+<link rel="stylesheet"    href="http://introcs.cs.princeton.edu/java.css" type="text/css">
+
+<title>RandomInt.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="RandomInt code in Java">
+<meta NAME="TITLE" CONTENT="RandomInt code in Java">
+<meta NAME="KEYWORDS" CONTENT="RandomInt,java,programming,computer science,algorithm,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>RandomInt.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "RandomInt.java">RandomInt.java</a>
+from <a href = "http://introcs.cs.princeton.edu/java/12types">&#167;1.2 Built-in Types of Data</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> *  Compilation:  javac RandomInt.java</span>
+<span class="comment"> *  Execution:    java RandomInt N</span>
+<span class="comment"> *  </span>
+<span class="comment"> *  Prints a pseudo-random integer between 0 and N-1.</span>
+<span class="comment"> *  Illustrate an explicit type conversion (cast) from double to int.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java RandomInt 6</span>
+<span class="comment"> *  Your random integer is: 5</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java RandomInt 6</span>
+<span class="comment"> *  Your random integer is: 0</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java RandomInt 1000</span>
+<span class="comment"> *  Your random integer is: 129</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java RandomInt 1000</span>
+<span class="comment"> *  Your random integer is: 333</span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************/</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">RandomInt</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span>
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> N </span><span class="symbol">=</span><span class="normal"> Integer</span><span class="symbol">.</span><span class="function">parseInt</span><span class="symbol">(</span><span class="normal">args</span><span class="symbol">[</span><span class="number">0</span><span class="symbol">]);</span>
+
+<span class="normal">        </span><span class="comment">// a pseudo-random real between 0.0 and 1.0</span>
+<span class="normal">        </span><span class="type">double</span><span class="normal"> r </span><span class="symbol">=</span><span class="normal"> Math</span><span class="symbol">.</span><span class="function">random</span><span class="symbol">();</span><span class="normal"> </span>
+
+<span class="normal">        </span><span class="comment">// a pseudo-random integer between 0 and N-1</span>
+<span class="normal">        </span><span class="type">int</span><span class="normal"> n </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">r </span><span class="symbol">*</span><span class="normal"> N</span><span class="symbol">);</span>
+
+<span class="normal">        System</span><span class="symbol">.</span><span class="normal">out</span><span class="symbol">.</span><span class="function">println</span><span class="symbol">(</span><span class="string">"Your random integer is: "</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> n</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2000&ndash;2011, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Mon Aug  3 06:09:11 EDT 2015.
+</small></address>
+
+</html>

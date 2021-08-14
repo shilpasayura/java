@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang = "en">
+
+<head>
+
+<link rel="shortcut icon" href="http://introcs.cs.princeton.edu/favicon.ico">
+<link rel="stylesheet"    href="http://introcs.cs.princeton.edu/java.css" type="text/css">
+
+<title>PlayThatTune.java</title>
+
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<meta NAME="AUTHOR" CONTENT="Robert Sedgewick and Kevin Wayne">
+<meta NAME="DESCRIPTION" CONTENT="PlayThatTune code in Java">
+<meta NAME="TITLE" CONTENT="PlayThatTune code in Java">
+<meta NAME="KEYWORDS" CONTENT="PlayThatTune,java,programming,computer science,algorithm,program,code">
+<meta NAME="ROBOTS" CONTENT="INDEX,FOLLOW">
+
+</head>
+
+
+<body>
+<center><h1>PlayThatTune.java</h1></center><p><br>
+
+Below is the syntax highlighted version of <a href = "PlayThatTune.java">PlayThatTune.java</a>
+from <a href = "http://introcs.cs.princeton.edu/java/15inout">&#167;1.5 Input and Output</a>.
+<p><br>
+
+<!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span class="comment">/******************************************************************************</span>
+<span class="comment"> *  Compilation:  javac PlayThatTune.java</span>
+<span class="comment"> *  Execution:    java PlayThatTune &lt; input.txt</span>
+<span class="comment"> *  Dependencies: StdAudio.java StdAudio.java</span>
+<span class="comment"> *</span>
+<span class="comment"> *  This is a data-driven program that plays pure tones from</span>
+<span class="comment"> *  the notes on the chromatic scale, specified on standard input</span>
+<span class="comment"> *  by their distance from concert A.</span>
+<span class="comment"> *</span>
+<span class="comment"> *  % java PlayThatTune &lt; elise.txt</span>
+<span class="comment"> *</span>
+<span class="comment"> *</span>
+<span class="comment"> *  Data files</span>
+<span class="comment"> *  ----------</span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/21function/elise.txt</span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/21function/freebird.txt</span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/21function/Ascale.txt</span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/21function/National_Anthem.txt</span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/21function/looney.txt</span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/21function/StairwayToHeaven.txt</span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/21function/entertainer.txt</span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/21function/old-nassau.txt</span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/21function/arabesque.txt</span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/21function/firstcut.txt</span><span class="comment"> </span>
+<span class="comment"> *  </span><span class="url">http://www.cs.princeton.edu/introcs/21function/tomsdiner.txt</span>
+<span class="comment"> *</span>
+<span class="comment"> ******************************************************************************/</span>
+
+<span class="keyword">public</span><span class="normal"> </span><span class="keyword">class</span><span class="normal"> </span><span class="classname">PlayThatTune</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">    </span><span class="keyword">public</span><span class="normal"> </span><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">main</span><span class="symbol">(</span><span class="normal">String</span><span class="symbol">[]</span><span class="normal"> args</span><span class="symbol">)</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">        </span><span class="comment">// repeat as long as there are more integers to read in</span>
+<span class="normal">        </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">StdIn</span><span class="symbol">.</span><span class="function">isEmpty</span><span class="symbol">())</span><span class="normal"> </span><span class="cbracket">{</span>
+
+<span class="normal">            </span><span class="comment">// read in the pitch, where 0 = Concert A (A4)</span>
+<span class="normal">            </span><span class="type">int</span><span class="normal"> pitch </span><span class="symbol">=</span><span class="normal"> StdIn</span><span class="symbol">.</span><span class="function">readInt</span><span class="symbol">();</span>
+
+<span class="normal">            </span><span class="comment">// read in duration in seconds</span>
+<span class="normal">            </span><span class="type">double</span><span class="normal"> duration </span><span class="symbol">=</span><span class="normal"> StdIn</span><span class="symbol">.</span><span class="function">readDouble</span><span class="symbol">();</span>
+
+<span class="normal">            </span><span class="comment">// build sine wave with desired frequency</span>
+<span class="normal">            </span><span class="type">double</span><span class="normal"> hz </span><span class="symbol">=</span><span class="normal"> </span><span class="number">440</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> Math</span><span class="symbol">.</span><span class="function">pow</span><span class="symbol">(</span><span class="number">2</span><span class="symbol">,</span><span class="normal"> pitch </span><span class="symbol">/</span><span class="normal"> </span><span class="number">12.0</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="type">int</span><span class="normal"> N </span><span class="symbol">=</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">StdAudio</span><span class="symbol">.</span><span class="normal">SAMPLE_RATE </span><span class="symbol">*</span><span class="normal"> duration</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="type">double</span><span class="symbol">[]</span><span class="normal"> a </span><span class="symbol">=</span><span class="normal"> </span><span class="keyword">new</span><span class="normal"> </span><span class="type">double</span><span class="symbol">[</span><span class="normal">N</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">];</span>
+<span class="normal">            </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="type">int</span><span class="normal"> i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;=</span><span class="normal"> N</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">                a</span><span class="symbol">[</span><span class="normal">i</span><span class="symbol">]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> Math</span><span class="symbol">.</span><span class="function">sin</span><span class="symbol">(</span><span class="number">2</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> Math</span><span class="symbol">.</span><span class="normal">PI </span><span class="symbol">*</span><span class="normal"> i </span><span class="symbol">*</span><span class="normal"> hz </span><span class="symbol">/</span><span class="normal"> StdAudio</span><span class="symbol">.</span><span class="normal">SAMPLE_RATE</span><span class="symbol">);</span>
+<span class="normal">            </span><span class="cbracket">}</span>
+
+<span class="normal">            </span><span class="comment">// play it using standard audio</span>
+<span class="normal">            StdAudio</span><span class="symbol">.</span><span class="function">play</span><span class="symbol">(</span><span class="normal">a</span><span class="symbol">);</span>
+<span class="normal">        </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span>
+</tt></pre>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10811519-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+
+<p><br><address><small>
+Copyright &copy; 2000&ndash;2011, Robert Sedgewick and Kevin Wayne.
+<br>Last updated: Sun Aug  2 18:43:37 EDT 2015.
+</small></address>
+
+</html>
