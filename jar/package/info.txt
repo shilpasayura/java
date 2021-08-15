@@ -1,4 +1,7 @@
 Creating a Jar file
+
+JAR file is a Java Archive. It's a ZIP format based file, that can include a runnable java package.
+
 A java package is a group of classes, interfaces and sub-packages. They may be in different folders.
 
 Syntax
