@@ -8,7 +8,7 @@ javac *.java
 Run
 java Main
 
-if CLASSPATH set
+if CLASSPATH set in environment variable
 java -cp . Main
 
 Create Jar File

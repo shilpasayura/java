@@ -3,6 +3,13 @@
 3. Compile Java Code
 4. Run Java Class 
 
+Add CLASSPATH temperarly 
+
+set CLASSPATH="C:\jdk15\jdbc"
+
+test it!
+echo %CLASSPATH%
+
 Sample Test Files
 
 Create SQLite Data Base
