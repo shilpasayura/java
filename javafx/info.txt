@@ -1,0 +1,58 @@
+Java FX
+
+Download JavaFX plugin
+
+https://gluonhq.com/products/javafx/
+
+Extract to a folder
+
+set PATH_TO_FX="C:\jdk15\javafx-sdk-11.0.2\lib"
+
+check
+echo %PATH_TO_FX%
+
+add this PATH_TO_FX permenently to envionment variables.
+
+HelloFX.java
+ 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+
+public class HelloFX extends Application {
+
+    @Override
+    public void start(Stage stage) {
+        String javaVersion = System.getProperty("java.version");
+        String javafxVersion = System.getProperty("javafx.version");
+        Label l = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
+        Scene scene = new Scene(new StackPane(l), 640, 480);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch();
+    }
+
+}
+
+javac --module-path %PATH_TO_FX% --add-modules javafx.controls HelloFX.java
+
+java --class-path . --module-path "%PATH_TO_FX%" --add-modules javafx.controls HelloFX
+
+create jrun.bat
+
+set arg1=%1
+javac --module-path %PATH_TO_FX% --add-modules javafx.controls %arg1%.java
+
+java --class-path . --module-path "%PATH_TO_FX%" --add-modules javafx.controls %arg1%
+
+run as 
+jrun MenuDemo
+
+Fxml scene builder
+https://www.oracle.com/java/technologies/javafxscenebuilder-1x-archive-downloads.html
+
