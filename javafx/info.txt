@@ -6,7 +6,7 @@ https://gluonhq.com/products/javafx/
 
 Extract to a folder
 
-set PATH_TO_FX="C:\jdk15\javafx-sdk-11.0.2\lib"
+set PATH_TO_FX="C:\jdk16\javafx-sdk-16\lib"
 
 check
 echo %PATH_TO_FX%
