@@ -1,20 +1,3 @@
-Java FX
-
-Download JavaFX plugin
-
-https://gluonhq.com/products/javafx/
-
-Extract to a folder
-
-set PATH_TO_FX="C:\jdk15\javafx-sdk-11.0.2\lib"
-
-check
-echo %PATH_TO_FX%
-
-add this PATH_TO_FX permenently to envionment variables.
-
-HelloFX.java
- 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -38,18 +21,3 @@ public class HelloFX extends Application {
     }
 
 }
-
-javac --module-path %PATH_TO_FX% --add-modules javafx.controls HelloFX.java
-
-java --class-path . --module-path "%PATH_TO_FX%" --add-modules javafx.controls HelloFX
-
-create jrun.bat
-
-set arg1=%1
-javac --module-path %PATH_TO_FX% --add-modules javafx.controls %arg1%.java
-
-java --class-path . --module-path "%PATH_TO_FX%" --add-modules javafx.controls %arg1%
-
-run as 
-jrun MenuDemo
-
