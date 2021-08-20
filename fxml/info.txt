@@ -1,0 +1,78 @@
+Java FXML 
+
+Download JDK 16 SDK
+https://www.oracle.com/java/technologies/javase-jdk16-downloads.html
+
+Download JavaFX 16 SDK
+https://openjfx.io
+
+In IntelliJ 
+Create JavaFX project HelloFx
+
+It creates three files
+Main.java 
+Controller.java
+sample.java
+
+Add JDK 16 to project
+File > Project Structure >SDK
+https://www.jetbrains.com/help/idea/sdk.html#change-project-sdk
+
+
+https://openjfx.io/openjfx-docs/
+
+Adding JavaFx Libraries
+File > Project Structure >Libraries > 
+Add JavaFx Libraries 
+C:\jdk16\javafx-sdk-16\lib
+
+Update VM options
+
+Run > Edit configurations > VM Options
+
+--module-path "C:\jdk16\javafx-sdk-16\lib" --add-modules javafx.controls,javafx.fxml
+
+Build and Run your project
+More ...
+https://www.youtube.com/watch?v=Ope4icw6bVk
+
+JavaFX Project in IntelliJ IDEA Using Scene Builder
+Create JavaFx Project FxmlScn
+Add Java SDK16 and JavaFx Libraries in Project Structure
+
+Update JVM Option in Edit Configuration
+--module-path "C:\jdk16\javafx-sdk-16\lib" --add-modules javafx.controls,javafx.fxml
+Test!
+
+Goto sample.fxml
+Click on ScnBuilder on bottom 
+Download ScnBuider
+
+
+GridPane layout enables creating flexible grid of rows and columns to lay out controls.
+Add a lable 
+Add a button
+click on code of button
+
+GridPane.columnSpan="2"
+
+
+fxid > BtnClickMe
+onAction > handleBtnClickMeAction
+
+fxid > LblText
+
+controller
+
+@FXML private Lable LblText;
+
+fx:controller="sample.Controller"
+
+@FXML private Label LblText;
+
+@FXML protected void handleBtnClickMeAction(ActionEvent event) {
+        LblText.setText("You Clicked!");
+}
+
+
+

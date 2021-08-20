@@ -1,4 +1,3 @@
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
@@ -6,6 +5,11 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.scene.paint.Color; 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+
+//https://docs.oracle.com/javafx/2/ui_controls/menu_controls.htm
 
 //create Menudemo object 
 public class MenuDemo extends Application {
@@ -47,8 +51,26 @@ public class MenuDemo extends Application {
         stage.setTitle("JavaFX Menu");
         stage.setScene(scene); // add to stage
         stage.show(); // display
-    }
+   
+		openFileItem.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent t) {
+			System.out.println("Open File Clicked");
+			//scene.setFill(Color.web("#81c483"));
+			}
+		});
+
+		
+		newItem.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent t) {
+			System.out.println("New Clicked");
+			//scene.setFill(Color.web("#81c483"));
+			}
+		});
  
+   
+   }
+
+
     public static void main(String[] args) {
         Application.launch(args);
     }
