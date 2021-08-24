@@ -155,16 +155,3 @@ public class Controller {
 
 
 
-@FXML private Lable LblText;
-
-fx:controller="sample.Controller"
-
-@FXML private Label LblText;
-
-@FXML protected void handleBtnClickMeAction(ActionEvent event) {
-        LblText.setText("You Clicked!");
-}
-
-Fxml
-
-
