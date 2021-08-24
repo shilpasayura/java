@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane alignment="TOP_CENTER" hgap="10" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <Label fx:id="lblName" style="-fx-background-color: #00FFFF;" text="Name" GridPane.rowIndex="1" />
+       
+
+      <Button fx:id="button1" mnemonicParsing="false" onAction="#handleButtonClick" style="-fx-background-color: #000000; -fx-padding: 5px; -fx-border-insets: 5px;" text="Button" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="7">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+       
+      <CheckBox fx:id="checkBox" mnemonicParsing="false" onAction="#checkBoxAction" text="Not Selected" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <ColorPicker fx:id="colorPicker" onAction="#pickColorAction" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <ImageView fx:id="imgView" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#imageClick" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <image>
+            <Image url="@rabbit.jpg" />
+         </image></ImageView>
+      <MenuBar prefHeight="26.0" prefWidth="190.0" GridPane.columnSpan="2">
+        <menus>
+          <Menu text="File">
+            <items>
+              <MenuItem mnemonicParsing="true" onAction="#exitSystem" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <Button fx:id="button2" mnemonicParsing="false" onAction="#button2Action" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <Button mnemonicParsing="false" onAction="#listItemSelectedAction" text="Selection" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <ComboBox fx:id="comboBox" onAction="#comboBoxAction" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+       </children>
+
+
+</GridPane>

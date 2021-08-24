@@ -3,27 +3,33 @@ Java FXML
 Download JDK 16 SDK
 https://www.oracle.com/java/technologies/javase-jdk16-downloads.html
 
+Install in c:\Jdk16\
+
 Download JavaFX 16 SDK
 https://openjfx.io
+
+Extract them to c:\Jdk16\javafx
 
 In IntelliJ 
 Create JavaFX project HelloFx
 
-It creates three files
+It creates three files for you.
 Main.java 
 Controller.java
 sample.java
 
 Add JDK 16 to project
 File > Project Structure >SDK
-https://www.jetbrains.com/help/idea/sdk.html#change-project-sdk
 
+https://www.jetbrains.com/help/idea/sdk.html#change-project-sdk
 
 https://openjfx.io/openjfx-docs/
 
-Adding JavaFx Libraries
+Add JavaFx Libraries to the project
+
 File > Project Structure >Libraries > 
 Add JavaFx Libraries 
+
 C:\jdk16\javafx-sdk-16\lib
 
 Update VM options
@@ -33,11 +39,17 @@ Run > Edit configurations > VM Options
 --module-path "C:\jdk16\javafx-sdk-16\lib" --add-modules javafx.controls,javafx.fxml
 
 Build and Run your project
+
 More ...
 https://www.youtube.com/watch?v=Ope4icw6bVk
 
-JavaFX Project in IntelliJ IDEA Using Scene Builder
+
+FxmlScn Project
+
+This is a a JavaFX Project in IntelliJ IDEA Using Scene Builder
+
 Create JavaFx Project FxmlScn
+
 Add Java SDK16 and JavaFx Libraries in Project Structure
 
 Update JVM Option in Edit Configuration
@@ -48,21 +60,100 @@ Goto sample.fxml
 Click on ScnBuilder on bottom 
 Download ScnBuider
 
-
 GridPane layout enables creating flexible grid of rows and columns to lay out controls.
+
 Add a lable 
 Add a button
-click on code of button
 
-GridPane.columnSpan="2"
+click on code of Button
 
 
 fxid > BtnClickMe
 onAction > handleBtnClickMeAction
 
+click on code of Label
+
 fxid > LblText
 
-controller
+
+
+Main.java
+
+package sample;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        primaryStage.setTitle("Hello Click");
+        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.show();
+    }
+
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+
+sample.fxml
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.ColumnConstraints?>
+
+<?import javafx.scene.layout.RowConstraints?>
+<GridPane alignment="center" gridLinesVisible="false" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <Label fx:id="LblText" textFill="#4c32cf" GridPane.columnIndex="0" GridPane.rowIndex="0">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
+      <Button fx:id="BtnClickMe" mnemonicParsing="false" onAction="#handleBtnClickMeAction" style="-fx-background-color: #000000;" text="Click Me" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="1">
+         <font>
+            <Font size="24.0" />
+         </font></Button>
+   </children>
+</GridPane>
+
+
+Controller.java
+
+package sample;
+
+import javafx.fxml.FXML;
+import javafx.event.ActionEvent;
+//import javafx.scene.text.Text;
+import javafx.scene.control.Label;
+public class Controller {
+    @FXML private Label LblText;
+    @FXML protected void handleBtnClickMeAction(ActionEvent event) {
+
+        LblText.setText("You Clicked!");
+    }
+
+}
+
+
 
 @FXML private Lable LblText;
 
@@ -74,5 +165,6 @@ fx:controller="sample.Controller"
         LblText.setText("You Clicked!");
 }
 
+Fxml
 
 
