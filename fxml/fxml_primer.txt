@@ -1,0 +1,341 @@
+Simple FXML
+
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+
+<VBox>
+    <children>
+        <Label text="Hello world FXML"/>
+    </children>
+</VBox>
+
+
+Properties in FXML
+Some JavaFX objects have properties. 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+
+<VBox spacing="20">
+    <children>
+        <Label text="Label 1"/>
+        <Label text="Label 2"/>
+    </children>       
+</VBox>
+
+
+FXML Element IDs
+We can assign IDs to FXML elements. These IDs can be used to reference the FXML elements. 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+
+<VBox spacing="20">
+    <children>
+        <Label fx:id="label1" text="Label 1"/>
+        <Label fx:id="label2" text="Label 2"/>
+    </children>       
+</VBox>
+
+FXML CSS Styling
+JavaFX components can have styles.
+
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+
+
+
+<VBox spacing="20">
+    <children>
+        <Label text="Label 1" style="-fx-background-color: #00FFFF;"/>
+        <Label text="Label 2"/>
+    </children>       
+</VBox>
+
+
+button margin workaround
+ -fx-padding: 5px;
+ -fx-border-insets: 5px;
+ -fx-background-insets: 5px;
+
+
+
+FXML Controller Classes
+We can set a controller class for an FXML document. It binds the GUI components in the FXML file.
+
+The controller class is specified in the root element of the FXML file using the fx:controller attribute. 
+
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+
+....
+
+</GridPane>
+
+
+
+FXML Event Handlers
+Fxml objects can have Event handlers. They can be invoked inside FXML file or in Java classes. 
+
+Sample.fxml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<Button fx:id="button1" text="Button"onAction="#handleButtonClick" />
+</GridPane>
+
+Controller.java
+      
+
+package sample;
+
+import javafx.event.Event;
+import javafx.fxml.FXML;
+
+public class Controller {
+    @FXML
+    public void handleButtonClick(Event e){
+        System.out.println("Button clicked");
+    }
+}
+
+
+FXML CSS Styling Methods
+
+JavaFX default CSS stylesheet
+Scene specific CSS stylesheet
+Parent specific CSS stylesheet
+Component style property
+
+Default CSS Stylesheet
+This get applied to all JavaFX components. If we provide no styling of the components, the default CSS stylesheet stylesheet will style the JavaFX components.
+
+Scene Specific CSS Stylesheet
+We can set a CSS stylesheet for a JavaFX Scene object. This will override the default stylesheet styles.
+
+scene.getStylesheets().add("style1/button-styles.css");
+
+
+
+Parent Specific CSS Stylesheets
+The Parent class is a base class for all components that can have children, meaning they can contain other components inside them. 
+
+Button button1 = new Button("Button 1");
+Button button2 = new Button("Button 2");
+
+VBox vbox = new VBox(button1, button2);
+
+vbox.getStylesheets().add("style1/button-styles.css");
+
+Component Style Property
+We can set CSS styles for a specific component by setting the CSS properties on the component. 
+
+Button button = new Button("Button 2");
+button.setStyle("-fx-background-color: #0000ff");
+
+
+We can set multiple CSS properties inside the same style string.
+
+String styles =
+        "-fx-background-color: #0000ff;" +
+        "-fx-border-color: #ff0000;" ;
+
+Button button = new Button("Button 2");
+button.setStyle(styles);
+
+Style Sheet on FXML file
+
+2
+
+What I found usable and working solution to include css file in fxml is add stylesheets="@app/cssfilename.css" to the parent node of the fxml file just as for stack pane
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.fxml.SettingsController" stylesheets="@app/cssfilepath.css">
+
+
+style.css
+
+.root {
+    -fx-background-color: #FFFFFF;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+
+.label {
+    -fx-text-fill: #000000;
+}
+
+.text-field {
+    -fx-border-color: #7a7a7a;
+    -fx-border-radius: 1.4;
+}
+
+.button {
+    -fx-background-color: #00ffff;
+    -fx-border-width: 1px;
+    -fx-border-color: black;
+    -fx-border-style: solid;
+    -fx-border-radius: 2px;
+}
+
+
+Aligning of Components
+
+<GridPane alignment="TOP_CENTER" hgap="10" ....>
+
+  
+
+ImageView
+ImageView doesn't have an onAction property. We canuse onMouseClicked:
+
+<ImageView fx:id="imgBox" onMouseClicked='#imagePicker'>
+
+You create an ImageView control instance by creating an instance of the ImageView class. 
+
+
+//Passing FileInputStream object as a parameter 
+
+
+Logging in Java
+There are 7 login levels in java + 2 special ones.
+https://www.geeksforgeeks.org/logging-in-java/
+
+
+import java.util.logging.Logger;
+
+private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    
+
+
+How to read an image in java.
+
+File – specifies a local folder.
+URL – specifies a url from the internet.
+class-path – specifies a class path resource located in src/main/resources.
+InputStream – specifies a InputStream.
+
+@FXML public void imageClick() throws IOException {
+
+    file = new File("src/sample/rabbit.jpg");
+    Image image = new Image(file.toURI().toString());
+    imgView.setImage(image);
+
+ }
+
+
+ListView Control
+JavaFX ListView control enables users to choose one or more options from a predefined list of choices. 
+
+http://tutorials.jenkov.com/javafx
+
+Adding Items to a ListView
+
+import javafx.scene.control.ListView;
+
+
+ @FXML
+    public void initialize() {
+
+        LOGGER.log(Level.INFO, "initialize() called");
+        //Multiple Selection
+        //listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        listView.getItems().add("Colombo");
+        listView.getItems().add("Kandy");
+        listView.getItems().add("Galle");
+        listView.getItems().add("Jaffna");
+    }
+
+
+
+Reading the Selected Value
+We can read the selected indexes of a ListView via its SelectionModel. 
+
+ObservableList allows listeners to track changes in a list.
+
+OberservableList contains Integer objects representing the indexes of the selected items in the ListView.
+
+ ObservableList selectedIndices = listView.getSelectionModel().getSelectedIndices();
+
+for(Object index : selectedIndices){
+ System.out.println("index = " + index + " (" + index.getClass() + ")");
+}
+
+Menu Item
+
+<MenuBar prefHeight="26.0" prefWidth="190.0" GridPane.columnSpan="2">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#exitSystem" text="Close" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      
+
+@FXML public void exitSystem(Event e){
+        System.exit(0);
+}
+
+mnemonicParsing
+
+This registers a keyboard shortcut to activate the element
+
+
+Color Picker
+
+@FXML private ColorPicker colorPicker;
+@FXML private Label lblName;
+@FXML private Button button1;
+
+
+Color c = colorPicker.getValue();
+lblName.setTextFill(c);
+
+BackgroundFill bgFill = new BackgroundFill(c, CornerRadii.EMPTY, Insets.EMPTY);
+Background bg = new Background(bgFill);
+button1.setBackground(bg);
+
+comboBox
+@FXML private ComboBox comboBox;
+
+//initilize()
+
+        comboBox.getItems().add("Choice 0");
+        comboBox.getItems().add("Choice 1");
+        comboBox.getItems().add("Choice 2");
+
+    @FXML public void comboBoxAction(){
+        int selectedIndex = comboBox.getSelectionModel().getSelectedIndex();
+        Object selectedItem = comboBox.getSelectionModel().getSelectedItem();
+        System.out.println("Selection made: [" + selectedIndex + "] " + selectedItem);
+        System.out.println(" ComboBox.getValue(): " + comboBox.getValue());
+    }
+
+
+Check Box
+
+@FXML private CheckBox checkBox;
+    
+
+@FXML public void checkBoxAction(){
+        if(checkBox.isSelected()){
+            checkBox.setText(("selected ");
+        }
+        else {
+            checkBox.setText(("Not selected ");
+        }
+    }
