@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller">
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <TextField fx:id="txtName" GridPane.columnIndex="1" />
+
+       <Button mnemonicParsing="false" onAction="#handleButtonClick" text="Click Me" textFill="#e22020" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         </Button>
+      <Label text="Name" textFill="#2730d0" />
+      <Label fx:id="LblText" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+   </children>
+</GridPane>
