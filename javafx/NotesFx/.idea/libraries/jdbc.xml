@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="jdbc">
+    <CLASSES>
+      <root url="file://C:/jdk16/jdbc" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://C:/jdk16/jdbc" />
+    </SOURCES>
+    <jarDirectory url="file://C:/jdk16/jdbc" recursive="false" />
+    <jarDirectory url="file://C:/jdk16/jdbc" recursive="false" type="SOURCES" />
+  </library>
+</component>
