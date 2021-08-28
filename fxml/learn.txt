@@ -1,0 +1,18 @@
+Next 6 Days Study Plan
+
+1. Download and install IntelliJ IDE
+2. Download and install JDK 16
+3. Download and install JavaFx 16
+
+
+Refresh Java Classes and Method
+
+Refresh Java Pakages
+
+Practice Basic Java with IntelliJ
+Practice Basic Java Pakage System with IntelliJ
+
+Study and Refresh Java Fx DOS mode
+Practic Java Fx in IntelliJ
+
+Study and Refresh Java Fxml  
