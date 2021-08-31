@@ -33,6 +33,7 @@ public class Controller  {
     @FXML private CheckBox checkBox;
 
     public Controller() {
+
         LOGGER.log(Level.INFO, "Constructor called");
     }
 
