@@ -1,0 +1,46 @@
+Java FXML 
+
+Download JDK 16 SDK
+https://www.oracle.com/java/technologies/javase-jdk16-downloads.html
+
+Install in c:\Jdk16\
+
+Download JavaFX 16 SDK
+https://openjfx.io
+
+Extract them to c:\Jdk16\javafx
+
+In IntelliJ 
+Create JavaFX project HelloFx
+
+It creates three files for you.
+Main.java 
+Controller.java
+sample.java
+
+Add JDK 16 to project
+File > Project Structure >SDK
+
+https://www.jetbrains.com/help/idea/sdk.html#change-project-sdk
+
+https://openjfx.io/openjfx-docs/
+
+Add JavaFx Libraries to the project
+
+File > Project Structure >Libraries > 
+Add JavaFx Libraries 
+
+C:\jdk16\javafx-sdk-16\lib
+
+Update VM options
+
+Run > Edit configurations > VM Options
+
+--module-path "C:\jdk16\javafx-sdk-16\lib" --add-modules javafx.controls,javafx.fxml
+
+Build and Run your project
+
+More ...
+https://www.youtube.com/watch?v=Ope4icw6bVk
+
+
