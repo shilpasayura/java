@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="apRoot" prefHeight="305.0" prefWidth="721.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.NotesController">
+   <children>
+      <TextArea fx:id="txtContent" layoutX="14.0" layoutY="97.0" prefHeight="155.0" prefWidth="464.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextArea>
+      <TextField fx:id="txtTitle" layoutX="90.0" layoutY="8.0" prefHeight="51.0" prefWidth="390.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Label layoutX="14.0" layoutY="16.0" text="Title">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label layoutX="524.0" layoutY="23.0" text="Priority">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtPriority" layoutX="607.0" layoutY="15.0" prefHeight="26.0" prefWidth="93.0" text="0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Label layoutX="21.0" layoutY="66.0" text="Note">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button layoutX="561.0" layoutY="188.0" mnemonicParsing="false" onAction="#addNote" prefHeight="64.0" prefWidth="139.0" style="-fx-background-color: #000000;" text="Add" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Label fx:id="txtStatus" layoutX="22.0" layoutY="252.0" prefHeight="51.0" prefWidth="458.0" textFill="RED" wrapText="true">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </Label>
+   </children>
+   <padding>
+      <Insets top="20.0" />
+   </padding>
+</AnchorPane>
